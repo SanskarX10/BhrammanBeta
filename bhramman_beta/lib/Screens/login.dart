@@ -5,7 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+
+import 'main_screen.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -48,8 +49,8 @@ class _LoginState extends State<Login> {
 
             dynamic result =await _auth.signInUserWithEmailAndPassword(emailTEC.text, passwordTEC.text);
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => Home(
-                  result : result.toString()
+                builder: (context) => MainScreen(
+
                 )
             ));
           }
@@ -134,7 +135,6 @@ class _LoginState extends State<Login> {
                               }
                               if(val.length < 6 ) {
                                 return 'Password must of at least 6 characters';
-
                               }
                               return null;
 
@@ -174,7 +174,6 @@ class _LoginState extends State<Login> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(58.0),
-
                             ),
                             child: login(),
                           ),
@@ -212,7 +211,6 @@ class _LoginState extends State<Login> {
 
                 SizedBox(height: 5,),
 
-
                 //login with social account..
                 Text("--------OR---------",
                   style: TextStyle(fontSize: 16.0, color: Colors.black45),),
@@ -233,7 +231,7 @@ class _LoginState extends State<Login> {
                          });
                          dynamic result = await _auth.googleSignIn();
                          Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (context) => Home(result: result.toString(),)
+                            builder: (context) => MainScreen()
                          ));
                       },
                       child: Image(

@@ -1,8 +1,9 @@
+import 'package:bhrammanbeta/Screens/main_screen.dart';
 import 'package:bhrammanbeta/Widgets/widgets.dart';
 import 'package:bhrammanbeta/database/auth.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+
 import 'login.dart';
 
 
@@ -52,8 +53,8 @@ class _SignUpState extends State<SignUp> {
               email: emailTEC.text,password: passwordTEC.text,phone: phoneTEC.text,name: nameTEC.text);
 
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => Home(
-                    result : result.toString()
+                builder: (context) => MainScreen(
+
                 )
             ));
           }

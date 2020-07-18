@@ -1,7 +1,9 @@
+import 'package:bhrammanbeta/Screens/main_screen.dart';
+import 'package:bhrammanbeta/resource/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'Screens/home.dart';
+
 import 'Screens/login.dart';
 
 void main() {
@@ -17,9 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Bhraman',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Login(),
