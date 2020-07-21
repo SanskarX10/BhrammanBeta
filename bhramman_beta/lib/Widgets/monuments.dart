@@ -18,7 +18,6 @@ class ForYou extends StatelessWidget {
     return Container(
       height: 270,
       child: ListView.builder(
-
         scrollDirection: Axis.horizontal,
         itemCount: activities.length,
         itemBuilder: (BuildContext context, int index) {
@@ -44,6 +43,19 @@ class ForYou extends StatelessWidget {
                       width: 180,
                       child:Stack(
                         children: [
+
+                          Opacity(
+                            opacity: 0.3,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: black,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                              ),
+                              height:270,
+                              width: 180,
+                            ),
+                          ),
+
                           Container(
                             height: 270,
                             width: 180,
@@ -56,17 +68,6 @@ class ForYou extends StatelessWidget {
                             ),
                           ),
 
-                          Opacity(
-                            opacity: 0.2,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: black,
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              height:270,
-                              width: 180,
-                            ),
-                          ),
 
                           Positioned(
                             left: 10.0,
@@ -87,7 +88,7 @@ class ForYou extends StatelessWidget {
                                           fontSize: 16.0),
                                     ),
                                     Text(
-                                      "Indore",
+                                          decoration.city,
                                       style: TextStyle(
                                           color: white,
                                           fontSize: 16.0),

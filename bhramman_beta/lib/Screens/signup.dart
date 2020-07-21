@@ -49,14 +49,21 @@ class _SignUpState extends State<SignUp> {
               clicked = true;
             });
 
-            dynamic result =await _auth.registerWithEmailAndPassword(
-              email: emailTEC.text,password: passwordTEC.text,phone: phoneTEC.text,name: nameTEC.text);
+            await _auth.registerWithEmailAndPassword(
+              email: emailTEC.text,password: passwordTEC.text,phone: phoneTEC.text,name: nameTEC.text)
+            .then((value) {
 
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => MainScreen(
+              AuthService.saveUserIdSharedPref(value.uid);
 
-                )
-            ));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => MainScreen(
+
+                  )
+              ));
+
+            });
+
+
           }
         },
         height: 50.0,

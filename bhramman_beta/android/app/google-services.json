@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1044329996199",
+    "firebase_url": "https://bhrammanbeta.firebaseio.com",
+    "project_id": "bhrammanbeta",
+    "storage_bucket": "bhrammanbeta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044329996199:android:2b9d691b4e95301799a082",
+        "android_client_info": {
+          "package_name": "com.travel.bhrammanbeta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044329996199-d0bulcusn8earm5bhemac43b0p2ar2sc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.travel.bhrammanbeta",
+            "certificate_hash": "9915c50a0c8d72d0601f5ef26c939fdcfeec4e18"
+          }
+        },
+        {
+          "client_id": "1044329996199-0n686lkn57jlbe2ug5kpdhiik85lmtio.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcZo7dvW2FjAOP38OcQFLnZesLVI9angA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044329996199-0n686lkn57jlbe2ug5kpdhiik85lmtio.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,6 +15,11 @@ class Data{
   String imageUrlTwo;
   String cardName;
   String cardUrl;
+  String entryFee;
+  String culture;
+  String festival;
+
+  String typeOfThing;
 
   Data(
       {
@@ -23,15 +28,18 @@ class Data{
         this.images,
         this.city,
         this.place,
+        this.entryFee,
         this.shortdescription,
         this.country,
         this.rating,
-        this.culName,
+        this.culture,
+        this.festival,
         this.imageUrlTwo,
         this.cardName,
         this.cardUrl,
         this.about,
         this.history,
+        this.typeOfThing,
       }
     );
 }

@@ -1,15 +1,18 @@
+import 'dart:collection';
 import 'dart:ui';
 
-
-import 'package:bhrammanbeta/Widgets/ontap_nearbyyou/inside_nearby.dart';
-import 'package:bhrammanbeta/Widgets/ontap_nearbyyou/nearbyontap_photos.dart';
-import 'package:bhrammanbeta/Widgets/ontap_nearbyyou/ontapnearby_mid.dart';
-import 'package:bhrammanbeta/Widgets/ontap_nearbyyou/review_part_nearby.dart';
+import 'package:bhrammanbeta/Widgets/review_widget.dart';
 import 'package:bhrammanbeta/data/data.dart';
+import 'package:bhrammanbeta/data/review_data.dart';
+import 'package:bhrammanbeta/database/auth.dart';
+import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 // ignore: must_be_immutable
 
 
@@ -32,59 +35,190 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
   bool clickedAbout = false;
   bool clickedHistory = false;
 
+  TextEditingController reviewController = TextEditingController();
+
+  DatabaseService databaseService =  DatabaseService();
+
+  var userRating = 0.0;
+
+  var totalRating = 0.0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getReviews();
+    super.initState();
+
+
+  }
+
+  @override
+  void dispose() {
+    textToSpeech.stop();
+  }
+
+ Widget showRating()  {
+
+
+    return totalRating == 0 && reviewList == null ? Container(
+      alignment: Alignment.center,
+      child: SmoothStarRating(
+        isReadOnly: true,
+        rating: 4.0,
+        starCount: 5,
+        color: Colors.orange,
+        size: 35,
+        ),
+      ) :
+    Container(
+      alignment: Alignment.center,
+      child: SmoothStarRating(
+        isReadOnly: true,
+        rating: totalRating,
+        starCount: 5,
+        color: Colors.orange,
+        size: 35,
+      ),
+    );
+
+
+
+
+
+  }
+
+  void setReview() async{
+
+      dynamic uid = await AuthService.getUserIdSharedPref();
+      dynamic userName = await AuthService.getUserNameSharePref();
+      dynamic profilePic = await AuthService.getProfilePhotoSharedPref();
+      if(reviewController.text != null) {
+        await databaseService.saveUserReviewToFireStore(userId: uid,city:widget.activity.city,typeOfThing: "Monuments",
+            name: widget.activity.place,
+            review: reviewController.text,
+            userName:userName,
+            profilePic:profilePic,
+            userRating: userRating
+        );
+      }
+      setState(() {
+        reviewController.text = '';
+      });
+
+  }
+
+
+  List<ReviewData> reviewList = new List();
+  Map<dynamic,dynamic> data = new HashMap();
+
+  void getReviews() async {
+    await databaseService.getUserReviewsFromFireStore(typeOfThing: "Monuments",
+        city: widget.activity.city,name:widget.activity.place).then((value) {
+      setState(() {
+        if(value != null) {
+          data = value;
+          reviewList = data['reviewData'];
+          totalRating  =data['totalRating'];
+        }
+
+      });
+    });
+  }
+
+
+  getRating(BuildContext context) {
+    return showDialog(context: context,builder: (context){
+
+       return AlertDialog(
+         content:  Container(
+            height: 30,
+             alignment: Alignment.center,
+             child: SmoothStarRating(
+               onRated:(value){
+                 setState(() {
+                   userRating = value;
+                 });
+               },
+               starCount: 5,
+               color: Colors.orange,
+               size: 35,
+             )
+         ),
+         actions: [
+           MaterialButton(
+             child: Text("Submit"),
+             onPressed: (){
+               setReview();
+               getReviews();
+               print(userRating);
+               Navigator.pop(context);
+             },
+
+           )
+         ],
+       );
+
+    });
+  }
+
+
+
+
+  Future speakShortDesc() async{
+    if(clickedOverView == true) {
+      await textToSpeech.speak(widget.activity.shortdescription);
+      await textToSpeech.setPitch(1);
+      await textToSpeech.setSpeechRate(0.8);
+      await textToSpeech.setVoice("hi-in-x-hie-network");
+    }
+    else{
+      await textToSpeech.stop();
+    }
+
+  }
+
+  Future speakHistory() async{
+    if(clickedHistory == true) {
+      await textToSpeech.speak(widget.activity.history);
+      await textToSpeech.setPitch(1);
+      await textToSpeech.setSpeechRate(0.8);
+      await textToSpeech.setVoice("hi-in-x-hie-network");
+    }
+    else{
+      await textToSpeech.stop();
+    }
+
+  }
+
+  Future speakAbout() async {
+    if(clickedAbout == true) {
+      await textToSpeech.speak(widget.activity.about);
+      await textToSpeech.setPitch(1);
+      await textToSpeech.setSpeechRate(0.8);
+      await textToSpeech.setVoice("hi-in-x-hie-network");
+
+    }
+    else{
+      await textToSpeech.stop();
+    }
+
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
-
-    Future speakShortDesc() async{
-      if(clickedOverView == true) {
-        await textToSpeech.speak(widget.activity.shortdescription);
-        await textToSpeech.setPitch(1);
-        await textToSpeech.setSpeechRate(0.8);
-        await textToSpeech.setVoice("hi-in-x-hie-network");
-        print(await textToSpeech.getVoices);
-      }
-      else{
-        await textToSpeech.stop();
-      }
-
-    }
-
-    Future speakHistory() async{
-      if(clickedHistory == true) {
-        await textToSpeech.speak(widget.activity.history);
-        await textToSpeech.setPitch(1);
-        await textToSpeech.setSpeechRate(0.8);
-        await textToSpeech.setVoice("hi-in-x-hie-network");
-        print(await textToSpeech.getVoices);
-      }
-      else{
-        await textToSpeech.stop();
-      }
-
-    }
-
-    Future speakAbout() async {
-      if(clickedAbout == true) {
-        await textToSpeech.speak(widget.activity.about);
-        await textToSpeech.setPitch(1);
-        await textToSpeech.setSpeechRate(0.8);
-        await textToSpeech.setVoice("hi-in-x-hie-network");
-        print(await textToSpeech.getVoices);
-      }
-      else{
-        await textToSpeech.stop();
-      }
-
-    }
 
 
 
     return Scaffold(
       body: Container(
         //scroll view main
+        height: double.infinity,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
+
           //main stack for app bar transparent///
           child: Stack(
             children: [
@@ -110,14 +244,7 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                           ],
                         ),
                       ),
-                      Opacity(
-                        opacity: 0.3,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.60,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.black,
-                        ),
-                      ),
+
                       Positioned(
                         top: 430,
                         left: 30,
@@ -135,7 +262,7 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                                   ),
                                 ),
                                 Text(
-                                  "Delhi",
+                                  widget.activity.city,
                                   style: TextStyle(
                                       color: white,
                                       fontFamily: 'sf_pro_bold',
@@ -202,6 +329,66 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
 
                   ),
                   //overview body short desc///
+
+                  SizedBox(height: 15,),
+
+
+                  Container(
+                      padding: EdgeInsets.only(left: 15,right: 15),
+                      child: Text(
+                        "Location",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'sf_pro_bold'
+                        ),
+                      )
+                  ),
+
+                  SizedBox(height: 5,),
+
+                  Container(
+                    padding: EdgeInsets.only(left: 15,right: 15),
+                    child: Text(
+                      widget.activity.location,
+                      style: TextStyle(
+                          fontFamily: "sf_pro_semi_bold",
+                          fontSize: 16
+                      ),
+
+                    ),
+
+                  ),
+
+
+                  SizedBox(height: 15,),
+
+
+                  Container(
+                      padding: EdgeInsets.only(left: 15,right: 15),
+                      child: Text(
+                        "Entry Fee",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'sf_pro_bold'
+                        ),
+                      )
+                  ),
+
+                  SizedBox(height: 5,),
+
+                  Container(
+                    padding: EdgeInsets.only(left: 15,right: 15),
+                    child: Text(
+                      widget.activity.entryFee,
+                      style: TextStyle(
+                          fontFamily: "sf_pro_semi_bold",
+                          fontSize: 16
+                      ),
+
+                    ),
+
+                  ),
+
 
                  //overview body history and about//
                  ExpansionTile(
@@ -312,34 +499,42 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                       )
                   ),
 
-                  Container(
-                    height: 260,
-                    padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 4.0,
-                      mainAxisSpacing: 8.0,
-                      children: List.generate(widget.activity.images.length, (index) {
-                        return GestureDetector(
-                          onTap: (){
-                            print(index);
-                          },
-                          child: Container(
-                            height: 120,
-                            width: 120,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(widget.activity.images[index]),
-                                )
-                            ),
-                          ),
-                        );
-                      })
+                  SizedBox(height: 10,),
 
+
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                          children: List.generate(widget.activity.images.length, (index) {
+                            return Row(
+
+                              children: [
+                                SizedBox(width: 10,),
+                                GestureDetector(
+                                  onTap: (){
+                                    print(index);
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20.0),
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(widget.activity.images[index]),
+                                        )
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 5,),
+                              ],
+                            );
+                          })
+
+                        ),
                     ),
-                  ),
+
+
                   //Gallery ...../
 
 
@@ -360,6 +555,8 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                   SizedBox(height: 15,),
 
 
+
+
                   Container(
                     padding: EdgeInsets.only(left: 10,right: 10),
                     child: Column(
@@ -368,15 +565,22 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                         //this input field for commentss....
                         Container(
                           padding: EdgeInsets.only(left: 10,right: 10),
-                          height: 80.0,
                           child: TextField(
+                            controller: reviewController,
                             style: TextStyle(
                               fontSize: 18.0,
+                              fontFamily: 'sf_pro_regular'
                             ),
                             textAlignVertical: TextAlignVertical.center,
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.send,color:lightGrey,size: 18,),
+
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    getRating(context);
+                                  },
+                                  icon: Icon(Icons.send),
+                                ),
                               contentPadding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 2.0),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color:grey),),
@@ -391,74 +595,57 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                           ),
                         ),
                         //---------------------------------
-                        //this Row is used to show comment or rating...
-                        Container(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
 
-                              Container(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                    'assets/images/manone.png'
-                                  ),
-                                ),
-                              ),
-
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: lightGrey,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                          child: Text('Rama Chandan tiddi',
-                                            style: TextStyle(
-                                                color: black,
-                                                fontSize: 18,
-                                                fontFamily: "sf_pro_bold"
-                                            ),
-                                          )
-                                      ),
-
-                                      SizedBox(height: 5,),
-
-
-                                      Container(
-                                          width: MediaQuery.of(context).size.width*0.70,
-                                          child: Text(
-                                              '',
-                                             style: TextStyle(
-                                               fontFamily: "sf_pro_regular",
-                                             ),
-                                          )
-                                      ),
-                                    ],
-
-
-                                  ),
-
-                              ),
-
-
-
-                            ],
-                          ),
-                        ),
+//                        this Row is used to show comment or rating...
                       ],
                     ),
                   ),
+
+                  SizedBox(height: 15,),
+
+                  showRating(),
+
+                  SizedBox(height: 15,),
+
+
+                  Container(
+                    child: Column(
+                      children: reviewList.length > 5 ?  List.generate(5, (index) {
+
+                        return Reviews(profileImage: reviewList[index].profilePic,
+                            time: reviewList[index].time, date:reviewList[index].date,rating: reviewList[index].currentRating, userName: reviewList[index].userName, review: reviewList[index].review);
+
+                      }) : List.generate(reviewList.length, (index) {
+
+                         return Reviews(profileImage: reviewList[index].profilePic,
+                             time: reviewList[index].time,date:reviewList[index].date,rating : reviewList[index].currentRating, userName: reviewList[index].userName, review: reviewList[index].review);
+
+                      })
+                    ),
+                  ),
+
+                  SizedBox(height: 15,),
+
+                  reviewList.length > 5 ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child:  OutlineButton(
+                      onPressed: (){},
+                      color: white,
+                      highlightedBorderColor: black,
+                      textColor: blueGreen,
+                      child: Text("More Reviews",style: TextStyle(fontSize: 16,fontFamily: 'sf_pro_bold'),),
+                    ),
+
+                    ):Container(),
+
+
+
+
                   SizedBox(height: 15,),
 
                 ],
               ),
-
 
               //app bar//
               Positioned(
@@ -468,18 +655,10 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                 ),
               ),
               //app bar//
-
-
-
             ],
           ),
         ),
       ),
-
-
-
-
-
     );
   }
 }

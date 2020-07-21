@@ -39,6 +39,11 @@ dependencies:
   geolocator:
   geocoder: ^0.2.1
   flutter_tts: ^1.2.6
+  shared_preferences: ^0.5.8
+  smooth_star_rating: ^1.1.1
+  carousel_slider: ^1.3.1
+  flutter_dialogflow_v2: ^0.3.1
+  bubble:
 
 
 
@@ -63,6 +68,7 @@ flutter:
      - assets/images/
      - assets/nearing/
      - assets/icons/
+     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

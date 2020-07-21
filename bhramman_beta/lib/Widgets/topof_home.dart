@@ -29,7 +29,7 @@ class TopOfHome extends StatelessWidget {
 
 
             Opacity(
-              opacity: 0.3,
+              opacity: 0.1,
               child: Container(
                 height: MediaQuery.of(context).size.height*0.30,
                 width: MediaQuery.of(context).size.width,
