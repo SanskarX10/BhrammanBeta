@@ -53,8 +53,10 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
   }
 
   @override
+  @mustCallSuper
   void dispose() {
     textToSpeech.stop();
+    super.dispose();
   }
 
  Widget showRating()  {

@@ -1,3 +1,6 @@
+import 'package:bhrammanbeta/Screens/live_stream.dart';
+import 'package:bhrammanbeta/data/live_stream_data.dart';
+import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +12,23 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
+
+  DatabaseService databaseService = DatabaseService();
+
+
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,54 +157,49 @@ class _ExploreState extends State<Explore> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: GestureDetector(
-              onTap: () {
-//                Navigator.push(context, MaterialPageRoute(builder: (context)=>OnTapCardCulture()));
+              onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveStream ()));
               },
-              child: GestureDetector(
-                onTap: (){
-//                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveStreamOnTap()));
-                },
-                child: Container(
-                  height: 200,
-                  child: Column(
-                    crossAxisAlignment:CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              fit: BoxFit.fitHeight,
-                              image: AssetImage('assets/images/livestream.png')
-                          ),
+              child: Container(
+                height: 200,
+                child: Column(
+                  crossAxisAlignment:CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                            fit: BoxFit.fitHeight,
+                            image: AssetImage('assets/images/livestream.png')
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 9,bottom: 9),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text('Live streaming',style: TextStyle(color: black,fontWeight: FontWeight.bold,
-                                fontFamily: 'sf_pro_bold',fontSize: 25),),
-                            Text(' (videos)',style: TextStyle(color: black,
-                                fontFamily: 'sf_pro_semi_bold',fontSize: 20),),
-                          ],
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 9,bottom: 9),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text('Live streaming',style: TextStyle(color: black,fontWeight: FontWeight.bold,
+                              fontFamily: 'sf_pro_bold',fontSize: 25),),
+                          Text(' (videos)',style: TextStyle(color: black,
+                              fontFamily: 'sf_pro_semi_bold',fontSize: 20),),
+                        ],
                       ),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: white,
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: white,
 
-                    boxShadow: [BoxShadow(color:Colors.black12,blurRadius: 10,offset: Offset(0.0,0.0),)],
-                    borderRadius: BorderRadius.circular(20),
+                  boxShadow: [BoxShadow(color:Colors.black12,blurRadius: 10,offset: Offset(0.0,0.0),)],
+                  borderRadius: BorderRadius.circular(20),
 //                  image: DecorationImage(
 //                    image: AssetImage('assets/images/livestream.png')
 //                  ),
-                  ),
                 ),
               ),
             ),

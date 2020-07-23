@@ -36,9 +36,9 @@ class _ChatBotState extends State<ChatBot> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "CupcakeShop Bot",
+          "Travel Guide",
         ),
-        backgroundColor: blueGreen,
+        backgroundColor: Colors.lightBlue,
       ),
       body: Container(
         child: Column(
@@ -52,7 +52,7 @@ class _ChatBotState extends State<ChatBot> {
                         messsages[index]["data"]))),
             Divider(
               height: 5.0,
-              color: Colors.deepOrange,
+              color: Colors.blueAccent,
             ),
             Container(
               padding: EdgeInsets.only(left: 15.0, right: 15.0),
@@ -80,7 +80,7 @@ class _ChatBotState extends State<ChatBot> {
 
                           Icons.send,
                           size: 30.0,
-                          color: Colors.deepOrange,
+                          color: blueGreen,
                         ),
                         onPressed: () {
                           if (messageInsert.text.isEmpty) {

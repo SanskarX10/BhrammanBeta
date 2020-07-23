@@ -4,6 +4,7 @@ import 'package:bhrammanbeta/data/about_city_data.dart';
 import 'package:bhrammanbeta/data/best_places.dart';
 import 'package:bhrammanbeta/data/essence_data.dart';
 import 'package:bhrammanbeta/data/food_data.dart';
+import 'package:bhrammanbeta/data/live_stream_data.dart';
 import 'package:bhrammanbeta/data/review_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -49,17 +50,23 @@ class DatabaseService {
     var minute  = time.minute;
     var day = time.day.toString() + "/" + time.month.toString() + "/" + time.year.toString();
 
-
-    await db.collection("Places").document(city).collection(typeOfThing).document(name).collection("Reviews").
-         document().setData({
+    try{
+      await db.collection("Places").document(city).collection(typeOfThing).document(name).collection("Reviews").
+      document().setData({
         "review" : review,
         "userName": userName,
         "timeStamp":Timestamp.now(),
-         "time" : "$hour:$minute",
-         "date":day,
-         "profilePic" :profilePic,
-         'rating' : userRating,
-    });
+        "time" : "$hour:$minute",
+        "date":day,
+        "profilePic" :profilePic,
+        'rating' : userRating,
+      });
+    }
+    catch(e) {
+      print(e);
+    }
+
+
   }
 
 
@@ -70,8 +77,6 @@ class DatabaseService {
 
       await db.collection("Places").document(city).collection(typeOfThing).document(name).collection("Reviews").orderBy("timeStamp",descending: true)
     .getDocuments().then((querySnapShots) {
-
-
 
         querySnapShots.documents.forEach((element) {
 
@@ -90,10 +95,7 @@ class DatabaseService {
              )
            );
         });
-
         totalRating = totalRating/querySnapShots.documents.length;
-
-
 
      });
     data = {"reviewData" : reviewData , "totalRating" : totalRating};
@@ -208,6 +210,47 @@ class DatabaseService {
   }
 
 
+  Future<void> saveLiveStreamDataToFirebase({String broadcastingId, String placeName, String city,
+    String state,String userName,String userId}) async {
+
+    try {
+      await db.collection("LiveStreams").document(userId).setData({
+        "broadcastingId":broadcastingId,
+        "placeName":placeName,
+        "state" : state,
+        "userName":userName,
+        "currentStatus":"online",
+        "timeStamp" : Timestamp.now(),
+      });
+    }
+    catch (e) {
+      print(e);
+    }
+
+  }
+
+
+  Future<dynamic> getLiveStreamDataFirebase() async {
+
+    List<LiveStreamData> liveStreamData = new List();
+    await db.collection("LiveStreams").orderBy("timeStamp",descending: true)
+        .getDocuments().then((querySnapShots) {
+          querySnapShots.documents.forEach((element) {
+             liveStreamData.add(
+               LiveStreamData(
+                 broadCastingId: element.data['broadcastingId'],
+                 currentStatus: element.data['currentState'],
+                 placeName: element.data['placeName'],
+                 state: element.data['state'],
+                 userName: element.data['userName'],
+                 timestamp: element.data['timeStamp'],
+               )
+             );
+          });
+    });
+
+    return liveStreamData;
+  }
 
 }
 

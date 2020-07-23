@@ -46,6 +46,7 @@ class _OnTapPlacesState extends State<OnTapPlaces> {
   @override
   void dispose() {
     textToSpeech.stop();
+    super.dispose();
   }
 
 

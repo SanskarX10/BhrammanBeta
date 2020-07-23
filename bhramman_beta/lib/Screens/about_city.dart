@@ -47,6 +47,7 @@ class _AboutCityState extends State<AboutCity> {
   @override
   void dispose() {
     textToSpeech.stop();
+    super.dispose();
   }
 
 

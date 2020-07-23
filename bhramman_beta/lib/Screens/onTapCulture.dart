@@ -55,6 +55,7 @@ class _OnTapCultureState extends State<OnTapCulture> {
   @override
   void dispose() {
     textToSpeech.stop();
+    super.dispose();
   }
 
 

@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import '../data/data.dart';
 import 'package:flutter/widgets.dart';
 
@@ -37,18 +38,31 @@ class _HomePageState extends State<HomePage> {
 
   String city="Delhi",state="New Delhi";
 
+  bool loading = true;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 //    getLocation();
-    getImage();
-    getMonuments();
-    getCulture();
-    getFestivals();
-    getCityData();
 
+     getFullData();
+
+  }
+
+  getFullData() async {
+    setState(() {
+      loading  = true;
+    });
+    await getImage();
+    await getMonuments();
+    await getCulture();
+    await getFestivals();
+    await getCityData();
+    setState(() {
+      loading  = false;
+    });
   }
 
   DatabaseService databaseService = DatabaseService();
@@ -57,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   getCityData() async{
     await databaseService.getCityDataFirebaseFireStore(city: "Delhi").then((value) {
       setState(() {
-        cityData = value;
+        cityData =  value;
       });
     });
   }
@@ -78,11 +92,11 @@ class _HomePageState extends State<HomePage> {
 //  }
 
   List <Data> monuments = new List();
-  void getMonuments() async {
+   getMonuments() async {
     await Firestore.instance.collection("Places").document(city).collection("Monuments")
         .getDocuments().then((querySnapshot) {
 
-      querySnapshot.documents.forEach((element) {
+       querySnapshot.documents.forEach((element) {
 
         List images = element.data['images'];
         Map longDesc = element.data['longDescription'];
@@ -106,7 +120,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List <Data> cultureAndFestival = new List();
-  void getCulture() async {
+ getCulture() async {
     await Firestore.instance.collection("Places").document(city).collection("Culture")
         .getDocuments().then((querySnapshot) {
 
@@ -131,7 +145,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  void getFestivals() async {
+  getFestivals() async {
     await Firestore.instance.collection("Places").document(city).collection("Festivals")
         .getDocuments().then((querySnapshot) {
 
@@ -168,7 +182,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: loading == false ?  Container(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -285,6 +299,69 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       )
+          : Shimmer.fromColors(
+           baseColor: grey, highlightColor: lightGrey,
+           child: ShimmerLayout(),
+        )
+    );
+  }
+}
+
+class ShimmerLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double containerWidth = 200;
+    double containerHeight = 15;
+
+    return SafeArea(
+      child: Container(
+        padding: EdgeInsets.all(3),
+        margin: EdgeInsets.symmetric(vertical: 7.5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(6, (index) {
+            return Container(
+              child: Row(
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(width: 10,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        height: containerHeight,
+                        width: containerWidth,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        height: containerHeight,
+                        width: containerWidth,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        height: containerHeight,
+                        width: containerWidth * 0.75,
+                        color: Colors.grey,
+                      )
+                    ],
+                  )
+
+
+                ]
+              )
+
+            );
+
+          }),
+        ),
+      ),
     );
   }
 }

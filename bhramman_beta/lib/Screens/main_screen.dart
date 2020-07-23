@@ -7,7 +7,7 @@ import 'package:bhrammanbeta/database/auth.dart';
 import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -139,25 +139,3 @@ class _MainScreenState extends State<MainScreen> {
 
 
 
-//CurvedNavigationBar(
-//index: 0,
-//color: Colors.white,
-//buttonBackgroundColor: Colors.white,
-//backgroundColor: Colors.blue,
-//animationCurve: Curves.easeInOut,
-//animationDuration: Duration(milliseconds: 300),
-//onTap: (index){
-//setState(() {
-//currentindex=index;
-//currentPage=pages[index];
-//});
-//
-//},
-//height: 60,
-//items: [
-//Icon(Icons.home),
-//Icon(Icons.camera),
-//Icon(Icons.chat),
-//
-//],
-//)

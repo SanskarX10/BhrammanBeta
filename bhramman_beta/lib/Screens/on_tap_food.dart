@@ -51,6 +51,7 @@ class _OnTapFoodState extends State<OnTapFood> {
   @override
   void dispose() {
     textToSpeech.stop();
+    super.dispose();
   }
 
 
