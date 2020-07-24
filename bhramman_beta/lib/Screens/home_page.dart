@@ -314,52 +314,60 @@ class ShimmerLayout extends StatelessWidget {
     double containerHeight = 15;
 
     return SafeArea(
-      child: Container(
-        padding: EdgeInsets.all(3),
-        margin: EdgeInsets.symmetric(vertical: 7.5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(6, (index) {
-            return Container(
-              child: Row(
-                children: [
-                  Container(
-                    height: 100,
-                    width: 100,
-                    color: Colors.grey,
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(3),
+          margin: EdgeInsets.symmetric(vertical: 7.5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(8, (index) {
+              return Container(
+                child: Column(
+                  children:[
+                    Row(
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 100,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(width: 10,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            height: containerHeight,
+                            width: containerWidth,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            height: containerHeight,
+                            width: containerWidth,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            height: containerHeight,
+                            width: containerWidth * 0.75,
+                            color: Colors.grey,
+                          )
+                        ],
+                      ),
+
+                    ]
                   ),
-                  SizedBox(width: 10,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        height: containerHeight,
-                        width: containerWidth,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(height: 5),
-                      Container(
-                        height: containerHeight,
-                        width: containerWidth,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(height: 5),
-                      Container(
-                        height: containerHeight,
-                        width: containerWidth * 0.75,
-                        color: Colors.grey,
-                      )
-                    ],
-                  )
 
+                  SizedBox(height: 10,)
 
-                ]
-              )
+                 ]
+                ),
 
-            );
+              );
 
-          }),
+            }),
+          ),
         ),
       ),
     );

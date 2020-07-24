@@ -1,4 +1,5 @@
 import 'package:bhrammanbeta/Screens/live_stream.dart';
+import 'package:bhrammanbeta/Screens/videos.dart';
 import 'package:bhrammanbeta/data/live_stream_data.dart';
 import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
@@ -16,17 +17,11 @@ class _ExploreState extends State<Explore> {
   DatabaseService databaseService = DatabaseService();
 
 
-
-
-
   @override
   void initState() {
     // TODO: implement initState
-
     super.initState();
   }
-
-
 
 
   @override
@@ -73,34 +68,29 @@ class _ExploreState extends State<Explore> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: GestureDetector(
-              onTap: () {
-//                Navigator.push(context, MaterialPageRoute(builder: (context)=>OnTapCardCulture()));
+              onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Videos()));
               },
-              child: GestureDetector(
-                onTap: (){
-//                  Navigator.push(context, MaterialPageRoute(builder: (context)=>OnTapOfVideos()));
-                },
-                child: Container(
-                  height: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(9.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Text('Videos',style: TextStyle(color: white,fontWeight: FontWeight.bold,
-                            fontFamily: 'sf_pro_bold',fontSize: 25),),
-                      ],
-                    ),
+              child: Container(
+                height: 200,
+                child: Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text('Videos',style: TextStyle(color: white,fontWeight: FontWeight.bold,
+                          fontFamily: 'sf_pro_bold',fontSize: 25),),
+                    ],
                   ),
-                  decoration: BoxDecoration(
-                    color: white,
-                    boxShadow: [BoxShadow(color:Colors.black12,blurRadius: 10,offset: Offset(0.0,0.0),)],
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage('assets/images/videos.png')
-                    ),
+                ),
+                decoration: BoxDecoration(
+                  color: white,
+                  boxShadow: [BoxShadow(color:Colors.black12,blurRadius: 10,offset: Offset(0.0,0.0),)],
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/videos.png')
                   ),
                 ),
               ),

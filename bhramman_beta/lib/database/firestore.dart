@@ -252,5 +252,36 @@ class DatabaseService {
     return liveStreamData;
   }
 
+
+  Future<void> saveVideoToFirebase({String userId,String type, String city,
+    String state,String videoUrl, String thumbImageUrl,String videoTitle,String userName}) async {
+
+   try{
+     await db.collection("Videos").document().setData({
+
+       "userId" : userId,
+       "videoType": type,
+       "videoUrl": videoUrl,
+       "thumbImageUrl" : thumbImageUrl,
+       'city': city,
+       'state':state,
+       'videoTitle' :videoTitle,
+       'userName' : userName,
+       "timeStamp":Timestamp.now(),
+
+     });
+   }
+   catch(e) {
+     print(e);
+   }
+
+  }
+
+
+
+
+
+
+
 }
 

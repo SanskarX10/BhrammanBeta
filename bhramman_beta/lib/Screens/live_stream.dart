@@ -131,7 +131,6 @@ class _LiveStreamStreamState extends State<LiveStream> {
                     stream: Firestore.instance
                         .collection("LiveStreams")
                         .orderBy("timeStamp", descending: true)
-                        .where("currentStatus", isEqualTo: "online")
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.data != null) {
@@ -143,7 +142,7 @@ class _LiveStreamStreamState extends State<LiveStream> {
                               DocumentSnapshot liveStreamData =
                               snapshot.data.documents[index];
 
-                              return GestureDetector(
+                              return liveStreamData['currentStatus'] == 'online' ? GestureDetector(
                                 onTap: () {
                                   _handleCameraAndMic();
                                   Navigator.push(
@@ -151,8 +150,7 @@ class _LiveStreamStreamState extends State<LiveStream> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             CallPage(
-                                              channelName: liveStreamData
-                                                  .data['broadcastingId'],
+                                              channelName: liveStreamData['broadcastingId'],
                                               role: ClientRole.Audience,
                                             ),
                                       ));
@@ -249,7 +247,7 @@ class _LiveStreamStreamState extends State<LiveStream> {
                                     ),
                                   ),
                                 ),
-                              );
+                              ) : Container();
                             }));
                       } else {
                         return Center(

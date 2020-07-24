@@ -14,6 +14,7 @@ class AuthService {
   static String sharedPrefProfilePhotoUrl = "profilePhoto";
   static String sharedPrefCurrentCity = "currentCity";
   static String sharedPrefCurrentState = "currentState";
+  static String sharedPrefOnBoardingScreenSeen = "onBoardingScreen";
 
   Future registerWithEmailAndPassword({String email,String password,String name, String phone})async {
     try {
@@ -101,7 +102,15 @@ class AuthService {
   }
 
 
+  static Future setOnBoardingSeenToSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(sharedPrefOnBoardingScreenSeen, true);
+  }
 
+  static Future<bool> getOnBoardingScreenSeenSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(sharedPrefOnBoardingScreenSeen);
+  }
 
 
 

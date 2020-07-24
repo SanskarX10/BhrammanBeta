@@ -15,6 +15,10 @@ class LiveStreamForm extends StatefulWidget {
 class _LiveStreamFormState extends State<LiveStreamForm> {
 
   String dropdownValue = 'Select';
+
+
+
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController broadCastingIdController = TextEditingController();
   TextEditingController cityController = TextEditingController();
@@ -134,14 +138,14 @@ class _LiveStreamFormState extends State<LiveStreamForm> {
                     hintText: "eg: yourname@surname",
                     textController: broadCastingIdController,
                     validator: (value) {
-                      if(value.isEmpty) {
-                        return "Broadcasting Id is empty";
-                      }
-                      if(!value.contains(userName) && !value.contains('@')) {
-                        return "Id should be as yourname@surname";
-                      }
-                      return null;
-                    },
+                    if(value.isEmpty) {
+                      return "Broadcasting Id is empty";
+                    }
+                    if(!value.contains(userName) && !value.contains('@')) {
+                      return "Id should be as yourname@surname";
+                    }
+                    return null;
+                   },
 
                   ),
 
@@ -180,6 +184,8 @@ class _LiveStreamFormState extends State<LiveStreamForm> {
                   SizedBox(
                     height: 20,
                   ),
+
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -221,11 +227,7 @@ class _LiveStreamFormState extends State<LiveStreamForm> {
                             ),
                           );
                         }).toList(),
-                      ),
-
-
-
-
+                      )
                     ],
                   ),
 

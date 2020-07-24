@@ -94,213 +94,197 @@ class _LoginState extends State<Login> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        brightness: Brightness.light,
-
-      ),
 
       //main Container
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              //Login head..
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Text('Login', style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 35.0
-                      ),),
-                      SizedBox(height: 10.0),
-                      Text('Login to your account', style: TextStyle(
-                          fontSize: 18.0, color: Colors.black45
-                       ),
-                      ),
-                    ],
-                  ),
-                  //Login head..
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
 
-                  //Text Field
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-
-                          MakeInput(
-                              validator: (val) {
-                                if(val.isEmpty) {
-                                  return "Email is empty";
-                                }
-                                 if(!RegExp(r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$").hasMatch(val)) {
-                                  return "Invalid Email";
-                                }
-                                  return null;
-                              },
-                              label: "Email",
-                              textController: emailTEC,
-                              inputType: TextInputType.emailAddress
-                          ),//email field
-
-                          MakeInput(
-                              validator: (val) {
-
-                                if(val.isEmpty) {
-                                  return "Password Is Empty";
-                                }
-                                if(val.length < 6 ) {
-                                  return 'Password must of at least 6 characters';
-                                }
-                                return null;
-
-                              },
-                              label: "Password",
-                              obscureText: passwordShow,
-                              textController: passwordTEC,
-                              inputType: TextInputType.text,
-                              iconPass: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    if(passwordShow == true) {
-                                      passwordShow =false;
-                                    }
-                                    else{
-                                      passwordShow= true;
-                                    }
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.remove_red_eye,
-                                ),
-                              )
-                          ),//password field
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Text('forgot password?', style: TextStyle(
-                                  fontSize: 15.0, color: Colors.blueAccent),),
-                            ],
-                          ),
-
-                          //Login Button
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(58.0),
-                              ),
-                              child: login(),
-                            ),
-                          ),
-                          //Login Button
-                        ],
-                      ),
-                    ),
-                  ),
-                  //Text Field
-
-
-
-                  //Sign up...
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+           
+            child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: 20,),
+                    Column(
                       children: <Widget>[
-                        Text('Don\'t have an account ? | ', style: TextStyle(
-                            fontSize: 16.0, color: Colors.black45),),
-                        GestureDetector(
-                            onTap: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignUp()));
-                            },
-                            child: Text('Sign Up',
-                              style: TextStyle(fontSize: 16.0, color: Colors
-                                  .blueAccent,),
-                            )
+                        Text('Login', style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 35.0,fontFamily: 'sf_pro_bold'
+                        ),),
+                        SizedBox(height: 10.0),
+                        Text('Login to your account', style: TextStyle(
+                            fontSize: 18.0, color: Colors.black45
+                         ),
                         ),
                       ],
                     ),
-                  ),
-                  //Sign up...
+                    //Login head..
 
-                  SizedBox(height: 5,),
+                    //Text Field
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
 
-                  //login with social account..
-                  Text("--------OR---------",
-                    style: TextStyle(fontSize: 16.0, color: Colors.black45),),
-                  SizedBox(height: 5,),
-                  Text("Login With",
-                    style: TextStyle(fontSize: 16.0, color: Colors.black45),),
-                  SizedBox(height: 8,),
+                            MakeInput(
+                                validator: (val) {
+                                  if(val.isEmpty) {
+                                    return "Email is empty";
+                                  }
+                                   if(!RegExp(r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$").hasMatch(val)) {
+                                    return "Invalid Email";
+                                  }
+                                    return null;
+                                },
+                                label: "Email",
+                                textController: emailTEC,
+                                inputType: TextInputType.emailAddress
+                            ),//email field
 
-                  clickedGoogle==true ? CircularProgressIndicator() :
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      //login with google..
-                      GestureDetector(
-                        onTap: () async{
-                           setState(() {
-                             clickedGoogle  = true;
-                           });
+                            MakeInput(
+                                validator: (val) {
 
+                                  if(val.isEmpty) {
+                                    return "Password Is Empty";
+                                  }
+                                  if(val.length < 6 ) {
+                                    return 'Password must of at least 6 characters';
+                                  }
+                                  return null;
 
-                           await _auth.googleSignIn().then((value){
-                             if(value!=null) {
-                               saveDataToSharedPrefStorage(userName: value.displayName,userId : value.uid,profilePhoto : value.photoUrl);
-                               Navigator.pushReplacement(context,  MaterialPageRoute(
-                                   builder:  (context) => MainScreen()
-                               ));
-                             }
+                                },
+                                label: "Password",
+                                obscureText: passwordShow,
+                                textController: passwordTEC,
+                                inputType: TextInputType.text,
+                                iconPass: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if(passwordShow == true) {
+                                        passwordShow =false;
+                                      }
+                                      else{
+                                        passwordShow= true;
+                                      }
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.remove_red_eye,
+                                  ),
+                                )
+                            ),//password field
 
-                           });
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text('forgot password?', style: TextStyle(
+                                    fontSize: 15.0, color: Colors.blueAccent),),
+                              ],
+                            ),
 
-                        },
-                        child: Image(
-                          height: 45.0,
-                          width: 45.0,
-                          image: AssetImage('assets/images/google.png'),
+                            //Login Button
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(58.0),
+                                ),
+                                child: login(),
+                              ),
+                            ),
+                            //Login Button
+                          ],
                         ),
                       ),
-                      //login with google..
+                    ),
+                    //Text Field
 
-                      SizedBox(width: 10,),
-                      Image(
-                        height: 45.0,
-                        width: 45.0,
-                        image: AssetImage('assets/images/facebook.png'),
+
+
+                    //Sign up...
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Don\'t have an account ? | ', style: TextStyle(
+                              fontSize: 16.0, color: Colors.black45),),
+                          GestureDetector(
+                              onTap: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignUp()));
+                              },
+                              child: Text('Sign Up',
+                                style: TextStyle(fontSize: 16.0, color: Colors
+                                    .blueAccent,),
+                              )
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              //login with social account..
+                    ),
+                    //Sign up...
 
+                    SizedBox(height: 5,),
 
-              //Last Image...
-              Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height / 4,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/loginpic.png'),
-                    )
+                    //login with social account..
+                    Text("--------OR---------",
+                      style: TextStyle(fontSize: 16.0, color: Colors.black45),),
+                    SizedBox(height: 5,),
+                    Text("Login With",
+                      style: TextStyle(fontSize: 16.0, color: Colors.black45),),
+                    SizedBox(height: 8,),
+
+                    clickedGoogle==true ? CircularProgressIndicator() :
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        //login with google..
+                        GestureDetector(
+                          onTap: () async{
+                             setState(() {
+                               clickedGoogle  = true;
+                             });
+
+                             await _auth.googleSignIn().then((value){
+                               if(value!=null) {
+                                 saveDataToSharedPrefStorage(userName: value.displayName,userId : value.uid,profilePhoto : value.photoUrl);
+                                 Navigator.pushReplacement(context,  MaterialPageRoute(
+                                     builder:  (context) => MainScreen()
+                                 ));
+                               }
+
+                             });
+
+                          },
+                          child: Image(
+                            height: 45.0,
+                            width: 45.0,
+                            image: AssetImage('assets/images/google.png'),
+                          ),
+                        ),
+                        //login with google..
+
+                        SizedBox(width: 10,),
+                        Image(
+                          height: 45.0,
+                          width: 45.0,
+                          image: AssetImage('assets/images/facebook.png'),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height:10),
+                    //Last Image...
+                    Container(
+                      height:230,
+                      child: Image(
+                        image: AssetImage('assets/images/loginpic.png'),
+                      ),
+
+                    ),
+                  ],
                 ),
-              ),
-              //Last Image...
-            ],
+                //login with social account..
           ),
         ),
       ),
