@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 
-import 'package:bhrammanbeta/Screens/videos.dart';
+import 'file:///D:/FlutterProjects/bhramman_beta/bhramman_beta/lib/Screens/video/videos.dart';
 import 'package:bhrammanbeta/Widgets/form_field.dart';
 import 'package:bhrammanbeta/Widgets/videoList.dart';
 import 'package:bhrammanbeta/database/auth.dart';

@@ -1,7 +1,9 @@
 import 'dart:ui';
 
-import 'package:bhrammanbeta/Screens/essence.dart';
-import 'package:bhrammanbeta/Screens/profile.dart';
+import 'package:bhrammanbeta/Screens/profile/profile.dart';
+
+import 'essence/essence.dart';
+
 import 'package:bhrammanbeta/data/data.dart';
 import 'package:bhrammanbeta/database/auth.dart';
 import 'package:bhrammanbeta/database/firestore.dart';
@@ -12,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'ar_lens.dart';
-import 'chat.dart';
+
 import 'explore.dart';
 import 'home_page.dart';
 
@@ -33,11 +35,11 @@ class _MainScreenState extends State<MainScreen> {
 
 
    final List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    Essence(),
-    ArLens(),
-    Explore(),
-    Profile(),
+     HomePage(),
+     Explore(),
+     ArLens(),
+     Essence(),
+     Profile(),
   ];
 
   int _selectedIndex = 0;
@@ -96,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
 
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: blueGreen,
+        selectedItemColor: Colors.lightBlue,
         selectedLabelStyle: TextStyle(color: blueGreen,fontWeight: FontWeight.w700),
         unselectedItemColor:black,
         unselectedLabelStyle: TextStyle(color: black,fontWeight: FontWeight.w700),
@@ -106,25 +108,28 @@ class _MainScreenState extends State<MainScreen> {
 
         items: [
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/home_icon.png'),),
+            icon:Icon(Icons.home,),
             title:Text("Home"),
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/essence_icon.png'),),
-            title: Text("Essence",)
+            icon: Icon(Icons.explore),
+            title:Text("Explore"),
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera),
+            title:Text("AI LENS"),
+          ),
+
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_florist),
+              title: Text("Essence",)
 
           ),
+
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/lens_icon.png'),),
-            title:Text("ArLens"),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/explore_icon.png'),),
-            title:Text("Explore"),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/profile_icon.png'),),
-            title:Text("Explore"),
+            icon: Icon(Icons.perm_identity),
+            title:Text("Profile"),
           ),
 
 

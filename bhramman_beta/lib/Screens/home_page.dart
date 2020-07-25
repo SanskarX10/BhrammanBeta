@@ -281,18 +281,7 @@ class _HomePageState extends State<HomePage> {
 
                 SizedBox(height: 12.0,),
 
-                RaisedButton(
-                  onPressed: () async{
-                   await FirebaseAuth.instance.signOut().then((value){
-                      AuthService.saveUserLoggedInSharedPref(false);
-                      Navigator.pushReplacement(context, MaterialPageRoute(
-                         builder:  (context) => Login()
-                      ));
 
-                   });
-                  },
-                  child: Text("Log out"),
-                ),
 
               ],
             ),

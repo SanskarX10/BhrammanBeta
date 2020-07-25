@@ -1,4 +1,4 @@
-import 'package:bhrammanbeta/Screens/videos.dart';
+import 'file:///D:/FlutterProjects/bhramman_beta/bhramman_beta/lib/Screens/video/videos.dart';
 import 'package:bhrammanbeta/Widgets/horizontal_card.dart';
 import 'package:bhrammanbeta/Widgets/videoList.dart';
 import 'package:bhrammanbeta/resource/color.dart';

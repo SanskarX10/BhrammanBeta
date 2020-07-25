@@ -50,7 +50,8 @@ dependencies:
   chewie: ^0.9.10
   file_picker: ^1.13.0+1
   image_picker:
-
+  firebase_ml_vision: ^0.9.4
+  path_provider: ^1.6.11
 
 
 

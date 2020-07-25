@@ -1,10 +1,10 @@
-import 'package:bhrammanbeta/Screens/on_tap_essence.dart';
+import 'file:///D:/FlutterProjects/bhramman_beta/bhramman_beta/lib/Screens/essence/on_tap_essence.dart';
 import 'package:bhrammanbeta/Screens/on_tap_monuments.dart';
-import 'package:bhrammanbeta/Screens/sdf.dart';
 import 'package:bhrammanbeta/data/essence_data.dart';
 import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
 import 'package:flutter/material.dart';
+import 'add_stories_form.dart';
 
 class Essence extends StatefulWidget {
 
@@ -53,6 +53,20 @@ class _EssenceState extends State<Essence> {
 
        ),
 
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+
+                builder: (context) => AddStoriesForm()
+
+              ));
+          },
+          backgroundColor: Colors.lightBlue,
+          child: Icon(
+            Icons.add,
+          ),
+
+        ),
 
         body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,

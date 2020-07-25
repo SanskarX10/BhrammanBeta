@@ -1,6 +1,7 @@
 
 import 'package:bhrammanbeta/resource/color.dart';
 import 'package:flutter/material.dart';
+import 'package:bhrammanbeta/Screens/search_screen.dart';
 
 class SearchBarHome extends StatelessWidget {
   @override
@@ -65,7 +66,11 @@ class SearchBarHome extends StatelessWidget {
 
       return GestureDetector(
         onTap: (){
+          Navigator.push(context, MaterialPageRoute(
 
+            builder: (context) => SearchScreen(),
+
+          ));
         },
         child: Container(
            padding: EdgeInsets.all(8),

@@ -28,8 +28,8 @@ class InPlaceCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
 
           ),
-          height: 180,
-          width: 350,
+          height: 200,
+          width: MediaQuery.of(context).size.width,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
             child: Stack(
@@ -49,8 +49,8 @@ class InPlaceCard extends StatelessWidget {
                           color: Colors.white.withOpacity(0)),
                     ),
                   ),
-                  height: 180,
-                  width: 350,
+                  height: 200,
+
                 ),
                 Center(
                   child: Text(name, style: TextStyle(

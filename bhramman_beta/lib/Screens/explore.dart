@@ -1,5 +1,5 @@
-import 'package:bhrammanbeta/Screens/live_stream.dart';
-import 'package:bhrammanbeta/Screens/videos.dart';
+import 'file:///D:/FlutterProjects/bhramman_beta/bhramman_beta/lib/Screens/live_stream/live_stream.dart';
+import 'file:///D:/FlutterProjects/bhramman_beta/bhramman_beta/lib/Screens/video/videos.dart';
 import 'package:bhrammanbeta/data/live_stream_data.dart';
 import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
