@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:ui';
 
+import 'package:bhrammanbeta/Widgets/open_map.dart';
 import 'package:bhrammanbeta/Widgets/review_widget.dart';
 import 'package:bhrammanbeta/data/data.dart';
 import 'package:bhrammanbeta/data/review_data.dart';
@@ -408,9 +409,6 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
 
                           ),
 
-
-
-
                         ],
                       ),
                     ),
@@ -495,97 +493,112 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                    title: Text("More"),
                    initiallyExpanded: false,
                    children: [
-                     Container(
-                         padding: EdgeInsets.only(left: 15,right: 15),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                     Card(
+                       elevation: 3.0,
+                       shadowColor: black,
+                       child: Padding(
+                         padding: EdgeInsets.only(bottom: 20),
+                         child: Column(
                            children: [
-                             Text(
-                               "About",
-                               style: TextStyle(
-                                   fontSize: 20,
-                                   fontFamily: 'sf_pro_bold'
+                             Container(
+                               padding: EdgeInsets.only(left: 15,right: 15),
+                               child: Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   Text(
+                                     "About",
+                                     style: TextStyle(
+                                         fontSize: 20,
+                                         fontFamily: 'sf_pro_bold'
+                                     ),
+                                   ),
+
+                                   IconButton(
+                                     icon: Icon(clickedAbout ?Icons.stop : Icons.volume_up),
+                                     onPressed: (){
+                                       setState(() {
+                                         if(clickedAbout == false) {
+                                           clickedAbout = true;
+                                         }
+                                         else{
+                                           clickedAbout = false;
+                                         }
+                                       });
+                                       speakAbout();
+                                     },
+                                   ),
+                                 ],
                                ),
                              ),
+                             Container(
+                               padding: EdgeInsets.only(left: 15,right: 15),
+                               child: Text(
+                                 widget.activity.about,
+                                 style: TextStyle(
+                                     fontFamily: "sf_pro_semi_bold",
+                                     fontSize: 18
+                                 ),
 
-                             IconButton(
-                               icon: Icon(clickedAbout ?Icons.stop : Icons.volume_up),
-                               onPressed: (){
-                                 setState(() {
-                                    if(clickedAbout == false) {
-                                      clickedAbout = true;
-                                    }
-                                    else{
-                                      clickedAbout = false;
-                                    }
-                                 });
-                                 speakAbout();
-                               },
+                               ),
+
+                             ),
+                             Container(
+                               padding: EdgeInsets.only(left: 15,right: 15),
+                               child: Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   Text(
+                                     "History",
+                                     style: TextStyle(
+                                         fontSize: 20,
+                                         fontFamily: 'sf_pro_bold'
+                                     ),
+                                   ),
+
+                                   IconButton(
+                                     icon: Icon(clickedHistory ? Icons.stop : Icons.volume_up),
+                                     onPressed: (){
+                                       setState(() {
+                                         if(clickedHistory == false) {
+                                           clickedHistory = true;
+                                         }
+                                         else{
+                                           clickedHistory = false;
+                                         }
+                                       });
+                                       speakHistory();
+                                     },
+                                   ),
+                                 ],
+                               ),
+                             ),
+                             Container(
+                               padding: EdgeInsets.only(left: 15,right: 15),
+                               child: Text(
+                                 widget.activity.history,
+                                 style: TextStyle(
+                                     fontFamily: "sf_pro_semi_bold",
+                                     fontSize: 18
+                                 ),
+
+                               ),
                              ),
                            ],
                          ),
-                     ),
-
-                     Container(
-                       padding: EdgeInsets.only(left: 15,right: 15),
-                       child: Text(
-                         widget.activity.about,
-                         style: TextStyle(
-                             fontFamily: "sf_pro_semi_bold",
-                             fontSize: 18
-                         ),
-
                        ),
-
-                     ),
-
-                     Container(
-                       padding: EdgeInsets.only(left: 15,right: 15),
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                           Text(
-                             "History",
-                             style: TextStyle(
-                                 fontSize: 20,
-                                 fontFamily: 'sf_pro_bold'
-                             ),
-                           ),
-
-                           IconButton(
-                             icon: Icon(clickedHistory ? Icons.stop : Icons.volume_up),
-                             onPressed: (){
-                               setState(() {
-                                 if(clickedHistory == false) {
-                                   clickedHistory = true;
-                                 }
-                                 else{
-                                   clickedHistory = false;
-                                 }
-                               });
-                               speakHistory();
-                             },
-                           ),
-                         ],
-                       ),
-                     ),
-                     Container(
-                       padding: EdgeInsets.only(left: 15,right: 15),
-                       child: Text(
-                         widget.activity.history,
-                         style: TextStyle(
-                             fontFamily: "sf_pro_semi_bold",
-                             fontSize: 18
-                         ),
-
-                       ),
-                     ),
+                     )
                    ],
                  ),
                   //overview body history and about//
 
 
                   SizedBox(height: 5,),
+
+                  OpenMap(
+                    latitude: widget.activity.latitude,
+                    longitude: widget.activity.longitude,name: widget.activity.place,
+                  ),
 
                   //Gallery .....
                   Container(

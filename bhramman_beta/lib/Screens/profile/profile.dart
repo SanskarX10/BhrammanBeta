@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
                                   child: MaterialButton(
                                     onPressed: () {
                                       Navigator.push(context, MaterialPageRoute(
-                                         builder :  (context) => EditProfile()
+                                         builder :  (context) => EditProfile(profilePic : userProfilePic, name : userName != null ? userName  : "Annonymous" , userId : userId)
                                       ));
                                     },
                                     splashColor: Colors.lightBlue,
@@ -146,8 +146,6 @@ class _ProfileState extends State<Profile> {
                 cardContainer(text: "Upload Videos",widget: VideoUploadForm(), icon: 'assets/icons/upload_video.png'),
                 SizedBox(height: 10,),
                 cardContainer(text: "Add a new story",widget: AddStoriesForm(), icon: 'assets/icons/story.png'),
-                SizedBox(height: 10,),
-                cardContainer(text: "Add Photos",widget: AddPhotos(),icon: 'assets/icons/photos.png'),
                 SizedBox(height: 10,),
                 cardContainer(text: "Give Feedback", widget: FeedBack() , icon: 'assets/icons/feedback.png'),
 

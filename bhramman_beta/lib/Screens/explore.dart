@@ -60,9 +60,9 @@ class _ExploreState extends State<Explore> {
 
           ExploreCard(
               image: 'assets/images/videos.png',
-              title: "Videos" ,
-              subTitle: " " ,
-              titleColor: white,
+              title: "Experiences" ,
+              subTitle: " (Videos)" ,
+              titleColor: black,
               onTapWidget: Videos()
           ),
 
@@ -82,14 +82,14 @@ class _ExploreState extends State<Explore> {
 
           ExploreCard(
               image: 'assets/images/livestream.png',
-              title: "Live streming " ,
+              title: "Live streams " ,
               subTitle: "(videos)" ,
               onTapWidget: LiveStream(),
               titleColor: Colors.black
           ),
 
           ExploreCard(
-            image: "assets/images/livestream.png",
+            image: "assets/images/switch.png",
             titleColor: black,
             subTitle: " ",
             title: "Switch",

@@ -15,6 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:shimmer/shimmer.dart';
 import '../data/data.dart';
 import 'package:flutter/widgets.dart';
@@ -45,6 +46,8 @@ class _HomePageState extends State<HomePage> {
 
   bool loading = true;
 
+  dynamic lat,long;
+
 
   @override
   void initState() {
@@ -56,10 +59,13 @@ class _HomePageState extends State<HomePage> {
 
   getLocation() async {
 
-
-
       Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude,position.longitude,localeIdentifier:AutofillHints.location);
+
+      setState(() {
+        lat = position.latitude;
+        long = position.longitude;
+      });
 
       String  city ="Delhi" , state;
 
@@ -190,6 +196,8 @@ class _HomePageState extends State<HomePage> {
                 entryFee: element.data['entryFee'],
                 about: longDesc['aboutThePlace'].toString(),
                 city: element.data['city'].toString(),
+                latitude: element.data['latitude'],
+                longitude: element.data['longitude'],
             )
         );
       });
@@ -216,6 +224,8 @@ class _HomePageState extends State<HomePage> {
               about: longDesc['about'].toString(),
               typeOfThing: "Culture",
               city: element.data['city'].toString(),
+              latitude: element.data['latitude'],
+              longitude: element.data['longitude'],
             )
         );
       });
@@ -343,6 +353,12 @@ class _HomePageState extends State<HomePage> {
 
 
 
+
+
+
+
+
+
               ],
             ),
           ),
@@ -407,7 +423,8 @@ class ShimmerLayout extends StatelessWidget {
                       ),
                     ]
                   ),
-                  SizedBox(height: 10,)
+                  SizedBox(height: 10,),
+
                  ]
                 ),
               );

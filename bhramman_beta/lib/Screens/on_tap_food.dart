@@ -284,150 +284,173 @@ class _OnTapFoodState extends State<OnTapFood> {
                   ),
                   //top stack . for slide show...
 
-                  SizedBox(height: 30,),
+                  SizedBox(height: 20,),
 
-                  //overview head///
-                  Container(
-                      padding: EdgeInsets.only(left: 15,right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Column(
                         children: [
-                          Text(
-                            "Overview",
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: 'sf_pro_bold'
+                          //overview head///
+                          Container(
+                              padding: EdgeInsets.only(left: 15,right: 15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Overview",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontFamily: 'sf_pro_bold'
+                                    ),
+                                  ),
+
+                                  IconButton(
+                                    icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
+                                    onPressed: (){
+                                      setState(() {
+                                        if(clickedOverView == false) {
+                                          clickedOverView = true;
+                                        }
+                                        else{
+                                          clickedOverView = false;
+                                        }
+                                      });
+                                      speakShortDesc();
+                                    },
+                                  ),
+                                ],
+                              )
+                          ),
+                          //overview head///
+
+                          SizedBox(height: 10,),
+
+                          //overview body short desc///
+                          Container(
+                            padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text(
+                              widget.foodData.shoreDescription,
+                              style: TextStyle(
+                                  fontFamily: "sf_pro_semi_bold",
+                                  fontSize: 18
+                              ),
+
                             ),
-                          ),
 
-                          IconButton(
-                            icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
-                            onPressed: (){
-                              setState(() {
-                                if(clickedOverView == false) {
-                                  clickedOverView = true;
-                                }
-                                else{
-                                  clickedOverView = false;
-                                }
-                              });
-                              speakShortDesc();
-                            },
                           ),
+                          //overview body short desc///
                         ],
-                      )
-                  ),
-                  //overview head///
-
-                  SizedBox(height: 10,),
-
-                  //overview body short desc///
-                  Container(
-                    padding: EdgeInsets.only(left: 15,right: 15),
-                    child: Text(
-                      widget.foodData.shoreDescription,
-                      style: TextStyle(
-                          fontFamily: "sf_pro_semi_bold",
-                          fontSize: 18
                       ),
-
-                    ),
-
+                    )
                   ),
-                  //overview body short desc///
 
-                  SizedBox(height: 15,),
+
+                  SizedBox(height: 5,),
 
                   //overview body history and about//
                   ExpansionTile(
                     title: Text("More"),
                     initiallyExpanded: false,
                     children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "About",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'sf_pro_bold'
+
+                      Card(
+                        child:Container(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child:Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 15,right: 15),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "About",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'sf_pro_bold'
+                                      ),
+                                    ),
+
+                                    IconButton(
+                                      icon: Icon(clickedAbout ?Icons.stop : Icons.volume_up),
+                                      onPressed: (){
+                                        setState(() {
+                                          if(clickedAbout == false) {
+                                            clickedAbout = true;
+                                          }
+                                          else{
+                                            clickedAbout = false;
+                                          }
+                                        });
+                                        speakAbout();
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
 
-                            IconButton(
-                              icon: Icon(clickedAbout ?Icons.stop : Icons.volume_up),
-                              onPressed: (){
-                                setState(() {
-                                  if(clickedAbout == false) {
-                                    clickedAbout = true;
-                                  }
-                                  else{
-                                    clickedAbout = false;
-                                  }
-                                });
-                                speakAbout();
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15,right: 15),
+                                child: Text(
+                                  widget.foodData.about,
+                                  style: TextStyle(
+                                      fontFamily: "sf_pro_semi_bold",
+                                      fontSize: 18
+                                  ),
 
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Text(
-                          widget.foodData.about,
-                          style: TextStyle(
-                              fontFamily: "sf_pro_semi_bold",
-                              fontSize: 18
-                          ),
+                                ),
 
-                        ),
-
-                      ),
-
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Famous Place to Eat",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'sf_pro_bold'
                               ),
-                            ),
 
-                            IconButton(
-                              icon: Icon(clickedHistory ? Icons.stop : Icons.volume_up),
-                              onPressed: (){
-                                setState(() {
-                                  if(clickedHistory == false) {
-                                    clickedHistory = true;
-                                  }
-                                  else{
-                                    clickedHistory = false;
-                                  }
-                                });
-                                speakHistory();
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Text(
-                          widget.foodData.famousPlace,
-                          style: TextStyle(
-                              fontFamily: "sf_pro_semi_bold",
-                              fontSize: 18
-                          ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15,right: 15),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Famous Place to Eat",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'sf_pro_bold'
+                                      ),
+                                    ),
 
-                        ),
-                      ),
+                                    IconButton(
+                                      icon: Icon(clickedHistory ? Icons.stop : Icons.volume_up),
+                                      onPressed: (){
+                                        setState(() {
+                                          if(clickedHistory == false) {
+                                            clickedHistory = true;
+                                          }
+                                          else{
+                                            clickedHistory = false;
+                                          }
+                                        });
+                                        speakHistory();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15,right: 15),
+                                child: Text(
+                                  widget.foodData.famousPlace,
+                                  style: TextStyle(
+                                      fontFamily: "sf_pro_semi_bold",
+                                      fontSize: 18
+                                  ),
+
+                                ),
+                              ),
+                            ],
+                          )
+                        )
+                      )
+
+
                     ],
                   ),
                   //overview body history and about//

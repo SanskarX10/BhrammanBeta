@@ -1,3 +1,4 @@
+import 'package:bhrammanbeta/Widgets/open_map.dart';
 import 'package:bhrammanbeta/Widgets/review_widget.dart';
 import 'package:bhrammanbeta/data/best_places.dart';
 import 'package:bhrammanbeta/data/review_data.dart';
@@ -272,87 +273,99 @@ class _OnTapPlacesState extends State<OnTapPlaces> {
 
                   SizedBox(height: 30,),
 
-                  //overview head///
-                  Container(
-                      padding: EdgeInsets.only(left: 15,right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Overview",
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: 'sf_pro_bold'
+                          //overview head///
+                          Container(
+                              padding: EdgeInsets.only(left: 15,right: 15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Overview",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontFamily: 'sf_pro_bold'
+                                    ),
+                                  ),
+
+                                  IconButton(
+                                    icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
+                                    onPressed: (){
+                                      setState(() {
+                                        if(clickedOverView == false) {
+                                          clickedOverView = true;
+                                        }
+                                        else{
+                                          clickedOverView = false;
+                                        }
+                                      });
+                                      speakShortDesc();
+                                    },
+                                  ),
+                                ],
+                              )
+                          ),
+                          //overview head///
+
+                          SizedBox(height: 10,),
+
+                          //overview body short desc///
+                          Container(
+                            padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text(
+                              widget.placesData.shortDescription,
+                              style: TextStyle(
+                                  fontFamily: "sf_pro_semi_bold",
+                                  fontSize: 18
+                              ),
+
                             ),
+
+                          ),
+                          //overview body short desc///
+
+                          SizedBox(height: 15,),
+
+
+                          Container(
+                              padding: EdgeInsets.only(left: 15,right: 15),
+                              child: Text(
+                                "Location",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'sf_pro_bold'
+                                ),
+                              ),
                           ),
 
-                          IconButton(
-                            icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
-                            onPressed: (){
-                              setState(() {
-                                if(clickedOverView == false) {
-                                  clickedOverView = true;
-                                }
-                                else{
-                                  clickedOverView = false;
-                                }
-                              });
-                              speakShortDesc();
-                            },
+                          SizedBox(height: 5,),
+
+                          Container(
+                            padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text(
+                              widget.placesData.location,
+                              style: TextStyle(
+                                  fontFamily: "sf_pro_semi_bold",
+                                  fontSize: 16
+                              ),
+
+                            ),
+
                           ),
                         ],
-                      )
-                  ),
-                  //overview head///
-
-                  SizedBox(height: 10,),
-
-                  //overview body short desc///
-                  Container(
-                    padding: EdgeInsets.only(left: 15,right: 15),
-                    child: Text(
-                      widget.placesData.shortDescription,
-                      style: TextStyle(
-                          fontFamily: "sf_pro_semi_bold",
-                          fontSize: 18
                       ),
-
                     ),
-
-                  ),
-                  //overview body short desc///
-
-                  SizedBox(height: 15,),
-
-
-                  Container(
-                      padding: EdgeInsets.only(left: 15,right: 15),
-                      child: Text(
-                        "Location",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'sf_pro_bold'
-                        ),
-                      )
-                  ),
-
-                  SizedBox(height: 5,),
-
-                  Container(
-                    padding: EdgeInsets.only(left: 15,right: 15),
-                    child: Text(
-                      widget.placesData.location,
-                      style: TextStyle(
-                          fontFamily: "sf_pro_semi_bold",
-                          fontSize: 16
-                      ),
-
-                    ),
-
                   ),
 
 
-                  SizedBox(height: 15,),
+
+
+
 
 
 
@@ -361,91 +374,102 @@ class _OnTapPlacesState extends State<OnTapPlaces> {
                     title: Text("More"),
                     initiallyExpanded: false,
                     children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "About",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'sf_pro_bold'
-                              ),
+
+                      Card(
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "About",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: 'sf_pro_bold'
+                                        ),
+                                      ),
+
+                                      IconButton(
+                                        icon: Icon(clickedAbout ?Icons.stop : Icons.volume_up),
+                                        onPressed: (){
+                                          setState(() {
+                                            if(clickedAbout == false) {
+                                              clickedAbout = true;
+                                            }
+                                            else{
+                                              clickedAbout = false;
+                                            }
+                                          });
+                                          speakAbout();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                Container(
+                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                  child: Text(
+                                    widget.placesData.about,
+                                    style: TextStyle(
+                                        fontFamily: "sf_pro_semi_bold",
+                                        fontSize: 18
+                                    ),
+
+                                  ),
+
+                                ),
+
+                                Container(
+                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "History",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: 'sf_pro_bold'
+                                        ),
+                                      ),
+
+                                      IconButton(
+                                        icon: Icon(clickedHistory ? Icons.stop : Icons.volume_up),
+                                        onPressed: (){
+                                          setState(() {
+                                            if(clickedHistory == false) {
+                                              clickedHistory = true;
+                                            }
+                                            else{
+                                              clickedHistory = false;
+                                            }
+                                          });
+                                          speakHistory();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                  child: Text(
+                                    widget.placesData.history,
+                                    style: TextStyle(
+                                        fontFamily: "sf_pro_semi_bold",
+                                        fontSize: 18
+                                    ),
+
+                                  ),
+                                ),
+                              ],
                             ),
+                          )
+                      )
 
-                            IconButton(
-                              icon: Icon(clickedAbout ?Icons.stop : Icons.volume_up),
-                              onPressed: (){
-                                setState(() {
-                                  if(clickedAbout == false) {
-                                    clickedAbout = true;
-                                  }
-                                  else{
-                                    clickedAbout = false;
-                                  }
-                                });
-                                speakAbout();
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Text(
-                          widget.placesData.about,
-                          style: TextStyle(
-                              fontFamily: "sf_pro_semi_bold",
-                              fontSize: 18
-                          ),
-
-                        ),
-
-                      ),
-
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "History",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'sf_pro_bold'
-                              ),
-                            ),
-
-                            IconButton(
-                              icon: Icon(clickedHistory ? Icons.stop : Icons.volume_up),
-                              onPressed: (){
-                                setState(() {
-                                  if(clickedHistory == false) {
-                                    clickedHistory = true;
-                                  }
-                                  else{
-                                    clickedHistory = false;
-                                  }
-                                });
-                                speakHistory();
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: Text(
-                          widget.placesData.history,
-                          style: TextStyle(
-                              fontFamily: "sf_pro_semi_bold",
-                              fontSize: 18
-                          ),
-
-                        ),
-                      ),
                     ],
                   ),
                   //overview body history and about//
@@ -453,6 +477,13 @@ class _OnTapPlacesState extends State<OnTapPlaces> {
 
                   SizedBox(height: 5,),
 
+                  OpenMap(
+                    latitude: widget.placesData.latitude,
+                    longitude: widget.placesData.longitude,
+                    name: widget.placesData.place,
+                  ),
+
+                  SizedBox(height: 10,),
                   //Gallery .....
                   Container(
                       padding: EdgeInsets.only(left: 15,right: 15),

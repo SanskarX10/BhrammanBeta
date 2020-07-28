@@ -94,7 +94,7 @@ class _EssenceState extends State<Essence> {
          title: Text("Essence" , style: TextStyle(color: Colors.lightBlue,
              fontFamily: 'normal_font',
              fontWeight: FontWeight.bold,
-             fontSize: 30),),
+             fontSize: 26),),
          elevation: 0,
 
        ),

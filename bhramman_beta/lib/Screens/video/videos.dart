@@ -32,195 +32,221 @@ class _VideosState extends State<Videos> {
 //   return querySnapshot;
 // }
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          Container(
-
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding:
-              const EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
+      body: Container(
+        child: ListView(
+          children: [
+            Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        'Videos',
-                        style: TextStyle(
-                            fontFamily: 'sf_pro_bold',
-                            color: Colors.lightBlue,
-                            fontSize: 35),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'Videos',
+                                style: TextStyle(
+                                    fontFamily: 'sf_pro_bold',
+                                    color: Colors.lightBlue,
+                                    fontSize: 35),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    height: 250,
+                    decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.only(
+                          bottomRight: const Radius.circular(25.0),
+                          bottomLeft: const Radius.circular(25.0)),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          'assets/images/videos.webp',
+                        ),
+                      ),
+                    ),
                   ),
-                ],
+                  SizedBox(height: 10,),
+
+                  PartsHeading(
+                    headText: "Experiences",
+                  ),
+
+
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: StreamBuilder(
+                          stream:Firestore.instance
+                              .collection("Videos")
+                              .orderBy("timeStamp", descending: true)
+                              .snapshots(),
+                          builder:  (context,snapshot) {
+                            if(snapshot.data !=null) {
+                              return Row(
+                                children: List.generate(
+                                    snapshot.data.documents.length, (index) {
+                                  DocumentSnapshot videoData =
+                                  snapshot.data.documents[index];
+                                  return videoData['videoType'] == 'Experience' ?
+
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context,MaterialPageRoute(
+                                        builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
+                                            titleVideo: videoData['videoTitle'], city: videoData['city'],
+                                            userName: videoData['userName']),
+                                      ));
+                                    },
+                                    child: HorizontalCard(
+                                      height: 200.0,
+                                      placeName: videoData['city'],
+                                      thumbnailUrl: videoData['thumbImageUrl'],
+                                    ),
+                                  )
+                                      : Container();
+
+                                }),
+
+
+                              );
+                            }
+                            return Container();
+                          }
+                      )
+                  ),
+
+
+                  SizedBox(height: 10,),
+
+
+                  PartsHeading(
+                    headText: "Food",
+                  ),
+
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: StreamBuilder(
+                          stream: Firestore.instance
+                              .collection("Videos")
+                              .orderBy("timeStamp",descending: true)
+                              .snapshots(),
+                          builder:  (context,snapshots) {
+                            if(snapshots.data !=null) {
+                              return Row(
+                                children: List.generate(
+                                    snapshots.data.documents.length, (index) {
+                                  DocumentSnapshot videoData =
+                                  snapshots.data.documents[index];
+                                  return videoData['videoType'] == 'Food' ?  GestureDetector(
+                                    onTap: () {
+
+                                      Navigator.push(context,MaterialPageRoute(
+                                        builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
+                                            titleVideo: videoData['videoTitle'], city: videoData['city'],
+                                            userName: videoData['userName']),
+                                      ));
+
+                                    },
+                                    child: HorizontalCard(
+                                      height: 200.0,
+                                      placeName: videoData['city'],
+                                      thumbnailUrl: videoData['thumbImageUrl'],
+                                    ),
+                                  ) : Container();
+                                }),
+                              );
+                            }
+                            return Container();
+                          }
+                      )
+                  ),
+
+                  SizedBox(height: 10,),
+
+                  PartsHeading(
+                    headText: "Monuments",
+                  ),
+
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: StreamBuilder(
+                          stream: Firestore.instance
+                              .collection("Videos")
+                              .orderBy("timeStamp",descending: true)
+                              .snapshots(),
+                          builder:  (context,snapshots) {
+                            if(snapshots.data !=null) {
+                              return Row(
+                                children: List.generate(
+                                    snapshots.data.documents.length, (index) {
+                                  DocumentSnapshot videoData =
+                                  snapshots.data.documents[index];
+                                  return videoData['videoType'] == 'Monuments' ?  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(context,MaterialPageRoute(
+                                        builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
+                                          titleVideo: videoData['videoTitle'], city: videoData['city'],
+                                          userName: videoData['userName'],  ),
+                                      ));
+                                    },
+                                    child: HorizontalCard(
+                                      height: 200.0,
+                                      userName: videoData['userName'],
+                                      placeName: videoData['city'],
+                                      thumbnailUrl: videoData['thumbImageUrl'],
+                                    ),
+                                  ) : Container();
+                                }),
+                              );
+                            }
+                            return Container();
+                          }
+                      )
+                  ),
+
+
+
+                ]
               ),
-            ),
-            height: 250,
-            decoration: BoxDecoration(
-              color: white,
-              borderRadius: BorderRadius.only(
-                  bottomRight: const Radius.circular(25.0),
-                  bottomLeft: const Radius.circular(25.0)),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                  'assets/images/videos.webp',
+
+
+                Positioned(
+                  child: AppBar(
+                    iconTheme: IconThemeData(
+                      color: Colors.black,
+                    ),
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                  ),
                 ),
-              ),
+
+              ],
             ),
-          ),
-          SizedBox(height: 10,),
 
-          PartsHeading(
-            headText: "Experiences",
-          ),
-
-
-          SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: StreamBuilder(
-                  stream:Firestore.instance
-                      .collection("Videos")
-                      .orderBy("timeStamp", descending: true)
-                      .snapshots(),
-                  builder:  (context,snapshot) {
-                    if(snapshot.data !=null) {
-                      return Row(
-                        children: List.generate(
-                            snapshot.data.documents.length, (index) {
-                          DocumentSnapshot videoData =
-                          snapshot.data.documents[index];
-                          return videoData['videoType'] == 'Experience' ?
-
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context,MaterialPageRoute(
-                                builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
-                                    titleVideo: videoData['videoTitle'], city: videoData['city'],
-                                    userName: videoData['userName']),
-                              ));
-                            },
-                            child: HorizontalCard(
-                              height: 200.0,
-                              placeName: videoData['city'],
-                              thumbnailUrl: videoData['thumbImageUrl'],
-                            ),
-                          )
-                              : Container();
-
-                        }),
-
-
-                      );
-                    }
-                    return Container();
-                  }
-              )
-          ),
-
-
-          SizedBox(height: 10,),
-
-
-          PartsHeading(
-            headText: "Food",
-          ),
-
-          SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: StreamBuilder(
-                  stream: Firestore.instance
-                      .collection("Videos")
-                      .orderBy("timeStamp",descending: true)
-                      .snapshots(),
-                  builder:  (context,snapshots) {
-                    if(snapshots.data !=null) {
-                      return Row(
-                        children: List.generate(
-                            snapshots.data.documents.length, (index) {
-                          DocumentSnapshot videoData =
-                          snapshots.data.documents[index];
-                          return videoData['videoType'] == 'Food' ?  GestureDetector(
-                            onTap: () {
-
-                              Navigator.push(context,MaterialPageRoute(
-                                builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
-                                    titleVideo: videoData['videoTitle'], city: videoData['city'],
-                                    userName: videoData['userName']),
-                              ));
-
-                            },
-                            child: HorizontalCard(
-                              height: 200.0,
-                              placeName: videoData['city'],
-                              thumbnailUrl: videoData['thumbImageUrl'],
-                            ),
-                          ) : Container();
-                        }),
-                      );
-                    }
-                    return Container();
-                  }
-              )
-          ),
-
-          SizedBox(height: 10,),
-
-          PartsHeading(
-            headText: "Monuments",
-          ),
-
-          SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: StreamBuilder(
-                  stream: Firestore.instance
-                      .collection("Videos")
-                      .orderBy("timeStamp",descending: true)
-                      .snapshots(),
-                  builder:  (context,snapshots) {
-                    if(snapshots.data !=null) {
-                      return Row(
-                        children: List.generate(
-                            snapshots.data.documents.length, (index) {
-                          DocumentSnapshot videoData =
-                          snapshots.data.documents[index];
-                          return videoData['videoType'] == 'Monuments' ?  GestureDetector(
-                            onTap: () {
-                              Navigator.push(context,MaterialPageRoute(
-                                builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
-                                  titleVideo: videoData['videoTitle'], city: videoData['city'],
-                                  userName: videoData['userName'],  ),
-                              ));
-                            },
-                            child: HorizontalCard(
-                              height: 200.0,
-                              userName: videoData['userName'],
-                              placeName: videoData['city'],
-                              thumbnailUrl: videoData['thumbImageUrl'],
-                            ),
-                          ) : Container();
-                        }),
-                      );
-                    }
-                    return Container();
-                  }
-              )
-          ),
-
-        ],
-      ),
-
-
-
-
+          ],
+        ),
+     ),
 
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlue,
@@ -235,7 +261,6 @@ class _VideosState extends State<Videos> {
 
 
       ),
-
     );
   }
 }

@@ -18,6 +18,8 @@ class Data{
   String entryFee;
   String culture;
   String festival;
+  dynamic latitude;
+  dynamic longitude;
 
   String typeOfThing;
 
@@ -40,6 +42,8 @@ class Data{
         this.about,
         this.history,
         this.typeOfThing,
+        this.latitude,
+        this.longitude,
       }
     );
 }

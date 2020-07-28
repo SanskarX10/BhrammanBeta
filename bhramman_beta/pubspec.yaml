@@ -53,6 +53,9 @@ dependencies:
   flutter_launcher_icons: ^0.7.5
   panorama: ^0.0.2
   webview_flutter: ^0.3.22+1
+  maps_launcher: ^1.2.1
+
+
 
 
 flutter_icons:

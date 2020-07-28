@@ -8,8 +8,10 @@ class ReviewData{
   String time;
   double rating;
   double currentRating;
+  dynamic latitude;
+  dynamic longitude;
 
-  ReviewData({this.profilePic,this.userName,this.review,this.timeStamp,this.date, this.time,this.rating,this.currentRating});
+  ReviewData({this.profilePic,this.latitude,this.longitude,this.userName,this.review,this.timeStamp,this.date, this.time,this.rating,this.currentRating});
 
 
 }

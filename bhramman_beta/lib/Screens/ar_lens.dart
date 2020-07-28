@@ -1,6 +1,7 @@
 import 'dart:io';
 
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,17 +14,30 @@ class ArLens extends StatefulWidget {
 
 class _ArLensState extends State<ArLens> {
 
-
-
+  File file;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+
+
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.lightBlue,
+          child: Icon(Icons.camera_enhance),
+          onPressed: ()async{
+           File image  =  await ImagePicker.pickImage(source: ImageSource.camera);
+
+           setState(() {
+             file  = File(image.path);
+           });
+
+          },
+        ),
         body : Center(
           child: Panorama(
              child: Image(
-               image: AssetImage('assets/images/three.jpg'),
+               image: file == null ?  AssetImage('assets/images/three.jpg') : FileImage(file),
              ),
           ),
         )

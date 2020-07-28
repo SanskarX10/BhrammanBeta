@@ -171,18 +171,6 @@ class _OnTapEssenceState extends State<OnTapEssence> {
 
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -211,125 +199,103 @@ class _OnTapEssenceState extends State<OnTapEssence> {
                            ),
                          ),
 
-                         Positioned(
-                           top: 400,
-                           child: Stack(
-                             children: [
 
-                               Opacity(
-                                 opacity: 0.9,
-                                 child: Container(
-                                   width: MediaQuery.of(context).size.width,
-                                   height:MediaQuery.of(context).size.height*0.30,
-                                   color: Colors.black12,
+                         Container(
+                           height: MediaQuery.of(context).size.height*0.60,
+                           width: MediaQuery.of(context).size.width,
+                           padding:EdgeInsets.all(15),
+                           alignment: Alignment.bottomLeft,
+                           child: Column(
+                               mainAxisAlignment: MainAxisAlignment.end,
+                               children : [
+                                 Text(
+                                   widget.essenceData.heritageName,
+                                   style: TextStyle(
+                                       color: white,
+                                       fontFamily: 'sf_pro_bold',
+                                       fontSize: 23
+                                   ),
                                  ),
-                               ),
-
-                               Container(
-                                 height: MediaQuery.of(context).size.height*0.60,
-                                 width: MediaQuery.of(context).size.width,
-                                 padding:EdgeInsets.all(15),
-                                 alignment: Alignment.bottomLeft,
-                                 child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.end,
-                                     children : [
-                                       Text(
-                                         widget.essenceData.heritageName,
-                                         style: TextStyle(
-                                             color: white,
-                                             fontFamily: 'sf_pro_bold',
-                                             fontSize: 23
-                                         ),
-                                       ),
-                                       Text(
-                                         widget.essenceData.city,
-                                         style: TextStyle(
-                                             color: white,
-                                             fontFamily: 'sf_pro_bold',
-                                             fontSize: 16
-                                         ),
-                                       )
-                                     ]
-                                 ),
-                               ),
-
-
-                             ],
-                           )
+                                 Text(
+                                   widget.essenceData.city,
+                                   style: TextStyle(
+                                       color: white,
+                                       fontFamily: 'sf_pro_bold',
+                                       fontSize: 16
+                                   ),
+                                 )
+                               ]
+                           ),
                          ),
                        ],
 
                      ),
                      //top stack . for slide show...
 
-                     SizedBox(height: 30,),
+                     SizedBox(height: 20,),
 
-                     //overview head///
-                     Container(
-                         padding: EdgeInsets.only(left: 15,right: 15),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+
+                     Card(
+                       child:Container(
+                         padding: EdgeInsets.only(bottom: 10),
+                         child: Column(
                            children: [
-                             Text(
-                               "Story",
-                               style: TextStyle(
-                                   fontSize: 25,
-                                   fontFamily: 'sf_pro_bold'
+                             //overview head///
+                             Container(
+                                 padding: EdgeInsets.only(left: 15,right: 15),
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     Text(
+                                       "Story",
+                                       style: TextStyle(
+                                           fontSize: 25,
+                                           fontFamily: 'sf_pro_bold'
+                                       ),
+                                     ),
+
+                                     IconButton(
+                                       icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
+                                       onPressed: (){
+                                         setState(() {
+                                           if(clickedOverView == false) {
+                                             clickedOverView = true;
+                                           }
+                                           else{
+                                             clickedOverView = false;
+                                           }
+                                         });
+                                         speakShortDesc();
+                                       },
+                                     ),
+                                   ],
+                                 )
+                             ),
+                             //overview head///
+
+                             SizedBox(height: 10,),
+
+                             Container(
+                               padding: EdgeInsets.only(left: 15,right: 15),
+                               child: Text(
+                                 widget.essenceData.description,
+                                 style: TextStyle(
+                                     fontFamily: "sf_pro_semi_bold",
+                                     fontSize: 18
+                                 ),
+
                                ),
                              ),
-
-                             IconButton(
-                               icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
-                               onPressed: (){
-                                 setState(() {
-                                   if(clickedOverView == false) {
-                                     clickedOverView = true;
-                                   }
-                                   else{
-                                     clickedOverView = false;
-                                   }
-                                 });
-                                 speakShortDesc();
-                               },
-                             ),
                            ],
-                         )
-                     ),
-                     //overview head///
-
-                     SizedBox(height: 10,),
-
-                     //overview body short desc///
-                     Container(
-                       padding: EdgeInsets.only(left: 15,right: 15),
-                       child: Text(
-                         widget.essenceData.description,
-                         style: TextStyle(
-                             fontFamily: "sf_pro_semi_bold",
-                             fontSize: 18
                          ),
+                             ),
 
                        ),
 
-                     ),
-                     //overview body short desc///
+
 
                      SizedBox(height: 15,),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                      //overview body history and about//
 //                     ExpansionTile(
