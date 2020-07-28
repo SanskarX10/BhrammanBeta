@@ -1,5 +1,7 @@
-import 'file:///D:/FlutterProjects/bhramman_beta/bhramman_beta/lib/Screens/live_stream/live_stream.dart';
 import 'file:///D:/FlutterProjects/bhramman_beta/bhramman_beta/lib/Screens/video/videos.dart';
+import 'package:bhrammanbeta/Screens/live_stream.dart';
+import 'package:bhrammanbeta/Screens/switch_section.dart';
+import 'package:bhrammanbeta/Widgets/exploreCards.dart';
 import 'package:bhrammanbeta/data/live_stream_data.dart';
 import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
@@ -33,17 +35,6 @@ class _ExploreState extends State<Explore> {
             width: MediaQuery.of(context).size.width,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Icon(
-                    Icons.keyboard_backspace,
-                    color: black,
-                    size: 25,
-                  ),
-                ],
-              ),
             ),
             height: 250,
             decoration: BoxDecoration(
@@ -65,137 +56,50 @@ class _ExploreState extends State<Explore> {
           ),
           //one
           //---------------------------------------------------
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: GestureDetector(
-              onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Videos()));
-              },
-              child: Container(
-                height: 200,
-                child: Padding(
-                  padding: const EdgeInsets.all(9.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text('Videos',style: TextStyle(color: white,fontWeight: FontWeight.bold,
-                          fontFamily: 'sf_pro_bold',fontSize: 25),),
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: white,
-                  boxShadow: [BoxShadow(color:Colors.black12,blurRadius: 10,offset: Offset(0.0,0.0),)],
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/videos.png')
-                  ),
-                ),
-              ),
-            ),
+
+
+          ExploreCard(
+              image: 'assets/images/videos.png',
+              title: "Videos" ,
+              subTitle: " " ,
+              titleColor: white,
+              onTapWidget: Videos()
           ),
+
+
           //two
           //------------------------------------------
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatBot()));
-              },
-              child: Container(
-                height: 200,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        'ChatBot',
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontFamily: 'sf_pro_bold',
-                            fontWeight: FontWeight.bold,
-                            color: white),
-                      ),
-                      Text(
-                        '(Q/A)',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'sf_pro_semibold',
-                            color: white),
-                      ),
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: white,
-                  boxShadow: [BoxShadow(color:Colors.black12,blurRadius: 10,offset: Offset(0.0,0.0),)],
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/chatbotimgtwo.png'),
-                  ),
-                ),
-              ),
-            ),
+
+          ExploreCard(
+              image: 'assets/images/chatbotimgtwo.png',
+              title: "ChatBot" ,
+              subTitle: "(Q/A)" ,
+              titleColor: white,
+              onTapWidget: ChatBot()
           ),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: GestureDetector(
-              onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveStream ()));
-              },
-              child: Container(
-                height: 200,
-                child: Column(
-                  crossAxisAlignment:CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: white,
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: AssetImage('assets/images/livestream.png')
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 9,bottom: 9),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text('Live streaming',style: TextStyle(color: black,fontWeight: FontWeight.bold,
-                              fontFamily: 'sf_pro_bold',fontSize: 25),),
-                          Text(' (videos)',style: TextStyle(color: black,
-                              fontFamily: 'sf_pro_semi_bold',fontSize: 20),),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: white,
 
-                  boxShadow: [BoxShadow(color:Colors.black12,blurRadius: 10,offset: Offset(0.0,0.0),)],
-                  borderRadius: BorderRadius.circular(20),
-//                  image: DecorationImage(
-//                    image: AssetImage('assets/images/livestream.png')
-//                  ),
-                ),
-              ),
-            ),
+
+          ExploreCard(
+              image: 'assets/images/livestream.png',
+              title: "Live streming " ,
+              subTitle: "(videos)" ,
+              onTapWidget: LiveStream(),
+              titleColor: Colors.black
           ),
+
+          ExploreCard(
+            image: "assets/images/livestream.png",
+            titleColor: black,
+            subTitle: " ",
+            title: "Switch",
+            onTapWidget: SwitchSection(),
+          )
+
         ],
       ),
     );
   }
+
+
 }

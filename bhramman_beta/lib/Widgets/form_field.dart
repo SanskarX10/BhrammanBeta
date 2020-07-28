@@ -17,14 +17,16 @@ class FormInputField extends StatelessWidget {
             child: Text(
               inputLabel,
               style: TextStyle(
-                  fontFamily: 'sf_pro_regular',
+                  fontFamily: 'sf_pro_semi_bold',
                   fontSize: 20,
                   color: black,
-                  fontWeight: FontWeight.bold),
+                  ),
             ),
           ),
           SizedBox(height: 1,),
           TextFormField(
+            maxLines: 200,
+            minLines: 1,
             validator: validator,
             controller: textController,
             style: TextStyle(

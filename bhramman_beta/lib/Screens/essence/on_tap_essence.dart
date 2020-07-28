@@ -226,10 +226,12 @@ class _OnTapEssenceState extends State<OnTapEssence> {
                                ),
 
                                Container(
-                                 padding: EdgeInsets.all(10),
+                                 height: MediaQuery.of(context).size.height*0.60,
                                  width: MediaQuery.of(context).size.width,
+                                 padding:EdgeInsets.all(15),
+                                 alignment: Alignment.bottomLeft,
                                  child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     mainAxisAlignment: MainAxisAlignment.end,
                                      children : [
                                        Text(
                                          widget.essenceData.heritageName,

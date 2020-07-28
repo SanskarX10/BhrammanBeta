@@ -29,7 +29,7 @@ class _BestPlacesState extends State<BestPlaces> {
   List<BestPlacesData> placesData = new List();
 
   getPlacesData() async {
-    await _databaseService.getBestPlacesDataFireStore(city: "Delhi").then((value) {
+    await _databaseService.getBestPlacesDataFireStore(city: widget.city).then((value) {
 
       setState(() {
         placesData =  value;
@@ -141,7 +141,7 @@ class _BestPlacesState extends State<BestPlaces> {
                                         Text(
                                           placesData[index].place,
                                           style: TextStyle(
-                                              fontSize: 30,
+                                              fontSize: 18,
                                               fontFamily: 'sf_pro_bold',
                                               fontWeight: FontWeight.bold,
                                               color: white),

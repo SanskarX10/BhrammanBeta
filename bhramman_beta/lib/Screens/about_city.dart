@@ -123,6 +123,18 @@ class _AboutCityState extends State<AboutCity> {
                   //top stack . for slide show...
                   Stack(
                     children: [
+
+
+                      Opacity(
+                        opacity: 0.3,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height*0.60,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.black,
+                        ),
+                      ),
+
+
                       Container(
                         height: MediaQuery.of(context).size.height*0.60,
                         width: MediaQuery.of(context).size.width,
@@ -140,14 +152,7 @@ class _AboutCityState extends State<AboutCity> {
                           ],
                         ),
                       ),
-                      Opacity(
-                        opacity: 0.3,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.60,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.black,
-                        ),
-                      ),
+
                       Positioned(
                         top: 430,
                         left: 30,

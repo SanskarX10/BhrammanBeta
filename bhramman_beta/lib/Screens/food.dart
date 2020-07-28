@@ -32,7 +32,7 @@ class _FoodState extends State<Food> {
   List<FoodData> foodData = new List();
 
   getFoodData() async {
-    await _databaseService.getFoodDataFromFireStore(city: "Delhi").then((value) {
+    await _databaseService.getFoodDataFromFireStore(city: widget.city).then((value) {
 
       setState(() {
         foodData =  value;

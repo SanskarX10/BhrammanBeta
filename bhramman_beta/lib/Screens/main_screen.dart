@@ -29,9 +29,6 @@ class _MainScreenState extends State<MainScreen> {
 
 
 
-  String currentCityName = "Indore";
-  String currentStateName = "Madhya Pradesh";
-
 
 
    final List<Widget> _widgetOptions = <Widget>[
@@ -50,94 +47,83 @@ class _MainScreenState extends State<MainScreen> {
   }
 
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLocation();
+
   }
 
-  void getLocation() async {
 
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude,position.longitude,localeIdentifier:AutofillHints.location);
-     setState(() {
-       if(placemark[0].subAdministrativeArea == 'Dewas'){
-         currentCityName = "Indore";
-         currentStateName = "Madhya Pradesh";
-       }
-       else if(placemark[0].subAdministrativeArea == "Ghaziabad") {
-         currentCityName = "Delhi";
-         currentStateName = "New Delhi";
-       }
-       else if(placemark[0].subAdministrativeArea == 'Jaipur') {
-         currentCityName = "Jaipur";
-         currentStateName="Rajasthan";
-       }
-       else if(placemark[0].subAdministrativeArea == 'Indore') {
-         currentCityName = "Indore";
-         currentStateName = "Madhya Pradesh";
-       }
-       else if(placemark[0].subAdministrativeArea == 'Satna' || placemark[0].subAdministrativeArea == 'Bina') {
-         currentCityName = "Indore";
-         currentStateName = "Madhya Pradesh";
-       }
-       else if(placemark[0].administrativeArea == 'Rajasthan'){
-         currentCityName = "Jaipur";
-         currentStateName = "Rajasthan";
-       }
+  Future<bool> onBackPressed() async{
 
-     });
-     await AuthService.saveCurrentLocationSharedPref( currentCity :  currentCityName, currentState:  currentStateName);
+      if(_selectedIndex != 0)  {
+
+         setState(() {
+           _selectedIndex = 0;
+         });
+         return false;
+      }
+      else{
+
+        return true;
+      }
+
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
 
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.lightBlue,
-        selectedLabelStyle: TextStyle(color: blueGreen,fontWeight: FontWeight.w700),
-        unselectedItemColor:black,
-        unselectedLabelStyle: TextStyle(color: black,fontWeight: FontWeight.w700),
-        showUnselectedLabels: true,
-        currentIndex:  _selectedIndex,
-        onTap: _onItemTapped,
+      onWillPop: onBackPressed,
 
-        items: [
-          BottomNavigationBarItem(
-            icon:Icon(Icons.home,),
-            title:Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            title:Text("Explore"),
-          ),
+      child: Scaffold(
 
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera),
-            title:Text("AI LENS"),
-          ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.lightBlue,
+          selectedLabelStyle: TextStyle(color: blueGreen,fontWeight: FontWeight.w700),
+          unselectedItemColor:black,
+          unselectedLabelStyle: TextStyle(color: black,fontWeight: FontWeight.w700),
+          showUnselectedLabels: true,
+          currentIndex:  _selectedIndex,
+          onTap: _onItemTapped,
 
-          BottomNavigationBarItem(
-              icon: Icon(Icons.local_florist),
-              title: Text("Essence",)
+          items: [
+            BottomNavigationBarItem(
+              icon:Icon(Icons.home,),
+              title:Text("Home"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore),
+              title:Text("Explore"),
+            ),
 
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.camera),
+              title:Text("AI LENS"),
+            ),
 
-          BottomNavigationBarItem(
-            icon: Icon(Icons.perm_identity),
-            title:Text("Profile"),
-          ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.local_florist),
+                title: Text("Essence",)
+
+            ),
+
+            BottomNavigationBarItem(
+              icon: Icon(Icons.perm_identity),
+              title:Text("Profile"),
+            ),
 
 
 
-        ],
+          ],
+        ),
+
+        body: _widgetOptions.elementAt(_selectedIndex),
       ),
-
-      body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 }

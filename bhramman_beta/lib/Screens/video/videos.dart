@@ -72,7 +72,7 @@ class _VideosState extends State<Videos> {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
-                  'assets/images/videos.jpg',
+                  'assets/images/videos.webp',
                 ),
               ),
             ),
@@ -85,45 +85,45 @@ class _VideosState extends State<Videos> {
 
 
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: StreamBuilder(
-              stream:Firestore.instance
-                  .collection("Videos")
-                  .orderBy("timeStamp", descending: true)
-                  .snapshots(),
-              builder:  (context,snapshot) {
-                if(snapshot.data !=null) {
-                  return Row(
-                    children: List.generate(
-                        snapshot.data.documents.length, (index) {
-                      DocumentSnapshot videoData =
-                      snapshot.data.documents[index];
-                      return videoData['videoType'] == 'Experience' ?
+              scrollDirection: Axis.horizontal,
+              child: StreamBuilder(
+                  stream:Firestore.instance
+                      .collection("Videos")
+                      .orderBy("timeStamp", descending: true)
+                      .snapshots(),
+                  builder:  (context,snapshot) {
+                    if(snapshot.data !=null) {
+                      return Row(
+                        children: List.generate(
+                            snapshot.data.documents.length, (index) {
+                          DocumentSnapshot videoData =
+                          snapshot.data.documents[index];
+                          return videoData['videoType'] == 'Experience' ?
 
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.push(context,MaterialPageRoute(
-                            builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
-                                titleVideo: videoData['videoTitle'], city: videoData['city'],
-                                userName: videoData['userName']),
-                          ));
-                        },
-                        child: HorizontalCard(
-                          height: 200.0,
-                          placeName: videoData['city'],
-                          thumbnailUrl: videoData['thumbImageUrl'],
-                        ),
-                      )
-                          : Container();
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context,MaterialPageRoute(
+                                builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
+                                    titleVideo: videoData['videoTitle'], city: videoData['city'],
+                                    userName: videoData['userName']),
+                              ));
+                            },
+                            child: HorizontalCard(
+                              height: 200.0,
+                              placeName: videoData['city'],
+                              thumbnailUrl: videoData['thumbImageUrl'],
+                            ),
+                          )
+                              : Container();
 
-                    }),
+                        }),
 
 
-                  );
-                }
-                return Container();
-              }
-            )
+                      );
+                    }
+                    return Container();
+                  }
+              )
           ),
 
 
@@ -151,11 +151,11 @@ class _VideosState extends State<Videos> {
                           return videoData['videoType'] == 'Food' ?  GestureDetector(
                             onTap: () {
 
-                                Navigator.push(context,MaterialPageRoute(
-                                  builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
-                                      titleVideo: videoData['videoTitle'], city: videoData['city'],
-                                      userName: videoData['userName']),
-                                ));
+                              Navigator.push(context,MaterialPageRoute(
+                                builder: (context) => PlayVideo(videoUrl: videoData['videoUrl'],
+                                    titleVideo: videoData['videoTitle'], city: videoData['city'],
+                                    userName: videoData['userName']),
+                              ));
 
                             },
                             child: HorizontalCard(
@@ -225,7 +225,7 @@ class _VideosState extends State<Videos> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlue,
         child: Icon(
-          Icons.add
+            Icons.add
         ),
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(

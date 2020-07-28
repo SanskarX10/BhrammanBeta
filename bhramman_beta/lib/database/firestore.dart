@@ -7,6 +7,7 @@ import 'package:bhrammanbeta/data/food_data.dart';
 import 'package:bhrammanbeta/data/live_stream_data.dart';
 import 'package:bhrammanbeta/data/review_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class DatabaseService {
   Firestore db = Firestore.instance;
@@ -277,11 +278,19 @@ class DatabaseService {
 
   }
 
+  Future<void> saveUserStoryToFirebase({String city,String state ,String userId , String storyTitle, String story,dynamic imageUrl}) async {
+      Firestore.instance.collection("Story").document().setData({
 
+        "city" : city,
+        "description" : story,
+        "HeritageName" : storyTitle,
+        "images" : [storyTitle],
+        "userId" : userId,
+         "timeStamp" : Timestamp.now(),
+        "state"  : state,
 
-
-
-
+      });
+  }
 
 }
 

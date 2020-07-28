@@ -192,10 +192,10 @@ class _LiveStreamFormState extends State<LiveStreamForm> {
                       Text(
                         'State*',
                         style: TextStyle(
-                            fontFamily: 'sf_pro_regular',
+                            fontFamily: 'sf_pro_semi_bold',
                             fontSize: 20,
                             color: black,
-                            fontWeight: FontWeight.bold),
+                           ),
                       ),
 
                       DropdownButton<String>(

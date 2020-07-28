@@ -226,6 +226,16 @@ class _OnTapFoodState extends State<OnTapFood> {
                   //top stack . for slide show...
                   Stack(
                     children: [
+                      Opacity(
+                        opacity: 0.2,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height*0.60,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.black,
+                        ),
+                      ),
+
+
                       Container(
                         height: MediaQuery.of(context).size.height*0.60,
                         width: MediaQuery.of(context).size.width,
@@ -241,40 +251,32 @@ class _OnTapFoodState extends State<OnTapFood> {
                           ],
                         ),
                       ),
-                      Opacity(
-                        opacity: 0.3,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.60,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Positioned(
-                        top: 430,
-                        left: 30,
-                        child: Container(
 
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children : [
-                                Text(
-                                  widget.foodData.foodName,
-                                  style: TextStyle(
-                                      color: white,
-                                      fontFamily: 'sf_pro_bold',
-                                      fontSize: 23
-                                  ),
+                      Container(
+                        height: MediaQuery.of(context).size.height*0.60,
+                        width: MediaQuery.of(context).size.width,
+                        padding:EdgeInsets.all(15),
+                        alignment: Alignment.bottomLeft,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children : [
+                              Text(
+                                widget.foodData.foodName,
+                                style: TextStyle(
+                                    color: white,
+                                    fontFamily: 'sf_pro_bold',
+                                    fontSize: 23
                                 ),
-                                Text(
-                                  widget.foodData.city,
-                                  style: TextStyle(
-                                      color: white,
-                                      fontFamily: 'sf_pro_bold',
-                                      fontSize: 16
-                                  ),
-                                )
-                              ]
-                          ),
+                              ),
+                              Text(
+                                widget.foodData.city,
+                                style: TextStyle(
+                                    color: white,
+                                    fontFamily: 'sf_pro_bold',
+                                    fontSize: 16
+                                ),
+                              )
+                            ]
                         ),
                       ),
                     ],

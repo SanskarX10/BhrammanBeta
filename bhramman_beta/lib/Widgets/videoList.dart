@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,9 @@ class VideoList extends StatefulWidget {
 }
 
 class _VideoListState extends State<VideoList> {
+
   ChewieController chewieController;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -50,6 +52,7 @@ class _VideoListState extends State<VideoList> {
       controller:  chewieController,
     );
   }
+
   @override
   void dispose()
   {
@@ -57,5 +60,6 @@ class _VideoListState extends State<VideoList> {
     widget.videoPlayerController.dispose();
     chewieController.dispose();
   }
+
 
 }

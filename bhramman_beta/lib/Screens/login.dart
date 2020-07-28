@@ -227,7 +227,7 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 5,),
 
                     //login with social account..
-                    Text("--------OR---------",
+                    Text("--------OR--------",
                       style: TextStyle(fontSize: 16.0, color: Colors.black45),),
                     SizedBox(height: 5,),
                     Text("Login With",
@@ -265,11 +265,7 @@ class _LoginState extends State<Login> {
                         //login with google..
 
                         SizedBox(width: 10,),
-                        Image(
-                          height: 45.0,
-                          width: 45.0,
-                          image: AssetImage('assets/images/facebook.png'),
-                        ),
+
                       ],
                     ),
 

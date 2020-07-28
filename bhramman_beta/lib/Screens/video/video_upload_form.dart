@@ -556,7 +556,7 @@ class _VideoUploadFormState extends State<VideoUploadForm> {
 
                  SizedBox(height: 5,),
 
-                 file == null ?
+                 file == null && warning == true ?
                  Container(
                    alignment: Alignment.center,
                    child: Text(

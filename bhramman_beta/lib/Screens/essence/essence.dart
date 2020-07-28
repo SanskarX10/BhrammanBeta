@@ -4,6 +4,7 @@ import 'package:bhrammanbeta/data/essence_data.dart';
 import 'package:bhrammanbeta/database/firestore.dart';
 import 'package:bhrammanbeta/resource/color.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'add_stories_form.dart';
 
 class Essence extends StatefulWidget {
@@ -18,11 +19,54 @@ class _EssenceState extends State<Essence> {
 
   DatabaseService  _databaseService =  DatabaseService();
 
+  String _city  = "Delhi", _state;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getLocation();
     getEssenceData();
+  }
+
+
+  getLocation() async {
+
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude,position.longitude,localeIdentifier:AutofillHints.location);
+
+    String  city , state;
+
+    if(placemark[0].subAdministrativeArea == 'Dewas'){
+      city = "Indore";
+      state = "Madhya Pradesh";
+    }
+    else if(placemark[0].subAdministrativeArea == "Ghaziabad") {
+      city = "Delhi";
+      state = "New Delhi";
+    }
+    else if(placemark[0].subAdministrativeArea == 'Jaipur') {
+      city = "Jaipur";
+      state ="Rajasthan";
+    }
+    else if(placemark[0].subAdministrativeArea == 'Indore') {
+      city = "Indore";
+      state = "Madhya Pradesh";
+    }
+    else if(placemark[0].subAdministrativeArea == 'Satna' || placemark[0].subAdministrativeArea == 'Bina') {
+      city = "Indore";
+      state = "Madhya Pradesh";
+    }
+    else if(placemark[0].administrativeArea == 'Rajasthan'){
+      city = "Jaipur";
+      state = "Rajasthan";
+    }
+    setState(() {
+      _city =  city;
+      _state = state;
+
+    });
+
   }
 
 
@@ -47,8 +91,10 @@ class _EssenceState extends State<Essence> {
 
        appBar: AppBar(
          backgroundColor:white,
-
-         title: Text("Essence" , style: TextStyle(color: Colors.lightBlue,fontFamily: 'normal_font',fontWeight: FontWeight.bold,fontSize: 30),),
+         title: Text("Essence" , style: TextStyle(color: Colors.lightBlue,
+             fontFamily: 'normal_font',
+             fontWeight: FontWeight.bold,
+             fontSize: 30),),
          elevation: 0,
 
        ),
@@ -69,11 +115,11 @@ class _EssenceState extends State<Essence> {
         ),
 
         body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.vertical,
           child: Container(
-
-          height: MediaQuery.of(context).size.height,
-            child:  Row(
+            alignment: Alignment.center,
+            child:  Column(
+             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(essenceData.length, (index) {
              return  GestureDetector(
                 onTap: () {
@@ -92,8 +138,8 @@ class _EssenceState extends State<Essence> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
-                            height:550,
-                            width: 300,
+                            height:MediaQuery.of(context).size.height*0.7,
+                            width: MediaQuery.of(context).size.width*0.9,
                             child:Stack(
                               children: [
 
@@ -110,8 +156,8 @@ class _EssenceState extends State<Essence> {
                                 ),
 
                                 Container(
-                                  height: 550,
-                                  width: 300,
+                                  height:MediaQuery.of(context).size.height*0.7,
+                                  width: MediaQuery.of(context).size.width*0.9,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
                                     child: Image(
@@ -154,20 +200,6 @@ class _EssenceState extends State<Essence> {
                                                     fontSize: 16.0),
                                               ),
 
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(Icons.star,
-                                                      color: Colors.orange, size: 15.0),
-                                                  Icon(Icons.star,
-                                                      color: Colors.orange, size: 15.0),
-                                                  Icon(Icons.star,
-                                                      color: Colors.orange, size: 15.0),
-                                                  Icon(Icons.star,
-                                                      color: Colors.orange, size: 15.0),
-                                                  Icon(Icons.star,
-                                                      color: Colors.white, size: 15.0),
-                                                ],
-                                              ),
                                             ],
                                           ),
                                         ),

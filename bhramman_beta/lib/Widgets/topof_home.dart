@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class TopOfHome extends StatelessWidget {
 
-  final String topImageUrl,profileImageUrl,cityName,stateName;
+  final String topImageUrl,profileImageUrl,cityName;
 
-  TopOfHome({this.topImageUrl,this.profileImageUrl,this.cityName,this.stateName});
+  TopOfHome({this.topImageUrl,this.profileImageUrl,this.cityName});
 
 
   @override
@@ -48,7 +48,7 @@ class TopOfHome extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Welcome to $cityName \n $stateName",
+                      Text("Welcome to $cityName",
                         style: TextStyle(
                           color: white,
                           fontSize: 20,
@@ -56,7 +56,8 @@ class TopOfHome extends StatelessWidget {
                         ),
                       ),
                       CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/manone.png'),
+                        backgroundImage: profileImageUrl == null ?  AssetImage('assets/icons/profile_avatar.png')
+                           : NetworkImage(profileImageUrl),
                       )
                     ],
                   ),

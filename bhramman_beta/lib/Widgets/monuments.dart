@@ -72,7 +72,7 @@ class ForYou extends StatelessWidget {
                           Positioned(
                             left: 10.0,
                             bottom: 8.0,
-                            right: 10.0,
+                            
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -94,20 +94,7 @@ class ForYou extends StatelessWidget {
                                           fontSize: 16.0),
                                     ),
 
-                                    Row(
-                                      children: <Widget>[
-                                        Icon(Icons.star,
-                                            color: Colors.orange, size: 15.0),
-                                        Icon(Icons.star,
-                                            color: Colors.orange, size: 15.0),
-                                        Icon(Icons.star,
-                                            color: Colors.orange, size: 15.0),
-                                        Icon(Icons.star,
-                                            color: Colors.orange, size: 15.0),
-                                        Icon(Icons.star,
-                                            color: Colors.white, size: 15.0),
-                                      ],
-                                    ),
+
                                   ],
                                 ),
                               ],

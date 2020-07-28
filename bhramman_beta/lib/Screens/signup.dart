@@ -53,7 +53,9 @@ class _SignUpState extends State<SignUp> {
               email: emailTEC.text,password: passwordTEC.text,phone: phoneTEC.text,name: nameTEC.text)
             .then((value) {
 
-              AuthService.saveUserIdSharedPref(value.uid);
+               AuthService.saveUserIdSharedPref(value.uid);
+                AuthService.saveUserNameSharedPref(nameTEC.text);
+
 
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => MainScreen(
@@ -251,7 +253,7 @@ class _SignUpState extends State<SignUp> {
                   ),
 
 
-
+                //last image//
                 Container(
                 height: 150,
                 decoration: BoxDecoration(
@@ -259,7 +261,7 @@ class _SignUpState extends State<SignUp> {
                       image: AssetImage('assets/images/sign_up_pic.png'),
                     )
                 ),
-              ),
+              ), //last image//
             ],
           ),
       ],

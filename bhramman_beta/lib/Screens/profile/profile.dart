@@ -141,15 +141,15 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox(height: 10,),
 
-                cardContainer(text: "Start Live Stream", widget: LiveStreamForm()),
+                cardContainer(text: "Start Live Stream", widget: LiveStreamForm() , icon: 'assets/icons/live_stream.png'),
                 SizedBox(height: 10,),
-                cardContainer(text: "Upload Videos",widget: VideoUploadForm()),
+                cardContainer(text: "Upload Videos",widget: VideoUploadForm(), icon: 'assets/icons/upload_video.png'),
                 SizedBox(height: 10,),
-                cardContainer(text: "Add a new story",widget: AddStoriesForm()),
+                cardContainer(text: "Add a new story",widget: AddStoriesForm(), icon: 'assets/icons/story.png'),
                 SizedBox(height: 10,),
-                cardContainer(text: "Add Photos",widget: AddPhotos()),
+                cardContainer(text: "Add Photos",widget: AddPhotos(),icon: 'assets/icons/photos.png'),
                 SizedBox(height: 10,),
-                cardContainer(text: "Give Feedback", widget: FeedBack()),
+                cardContainer(text: "Give Feedback", widget: FeedBack() , icon: 'assets/icons/feedback.png'),
 
                 SizedBox(height: 20,),
 
@@ -174,7 +174,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget cardContainer({String text,dynamic widget}) {
+  Widget cardContainer({String text,dynamic widget,dynamic icon}) {
     return   Container(
       padding: EdgeInsets.only(left: 10,right: 10),
       height: 60,
@@ -206,7 +206,9 @@ class _ProfileState extends State<Profile> {
                 SizedBox(width: 30,),
                 Container(
                   child: Text(text,style: TextStyle(color: Colors.black,fontSize: 18,fontFamily: 'normal_font'),),
-                )
+                ),
+
+
 
               ],
             ),

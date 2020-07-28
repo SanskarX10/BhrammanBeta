@@ -212,10 +212,9 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
   @override
   Widget build(BuildContext context) {
 
-
-
     return Scaffold(
       body: Container(
+        color: Colors.white70,
         //scroll view main
         height: double.infinity,
         child: SingleChildScrollView(
@@ -231,6 +230,16 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                   //top stack . for slide show...
                   Stack(
                     children: [
+
+                      Opacity(
+                        opacity: 0.3,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height*0.60,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.black,
+                        ),
+                      ),
+
                       Container(
                         height: MediaQuery.of(context).size.height*0.60,
                         width: MediaQuery.of(context).size.width,
@@ -247,32 +256,31 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
                         ),
                       ),
 
-                      Positioned(
-                        top: 430,
-                        left: 30,
-                        child: Container(
-
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children : [
-                                Text(
-                                  widget.activity.place,
-                                  style: TextStyle(
-                                      color: white,
-                                      fontFamily: 'sf_pro_bold',
-                                      fontSize: 23
-                                  ),
+                      Container(
+                        height: MediaQuery.of(context).size.height*0.60,
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.bottomLeft,
+                        padding: EdgeInsets.all(15),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children : [
+                              Text(
+                                widget.activity.place,
+                                style: TextStyle(
+                                    color: white,
+                                    fontFamily: 'sf_pro_bold',
+                                    fontSize: 23
                                 ),
-                                Text(
-                                  widget.activity.city,
-                                  style: TextStyle(
-                                      color: white,
-                                      fontFamily: 'sf_pro_bold',
-                                      fontSize: 16
-                                  ),
-                                )
-                              ]
-                          ),
+                              ),
+                              Text(
+                                widget.activity.city,
+                                style: TextStyle(
+                                    color: white,
+                                    fontFamily: 'sf_pro_bold',
+                                    fontSize: 16
+                                ),
+                              )
+                            ]
                         ),
                       ),
                     ],
@@ -284,112 +292,202 @@ class _OnTapMonumentsState extends State<OnTapMonuments> {
 
                   //overview head///
                   Container(
-                    padding: EdgeInsets.only(left: 15,right: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Overview",
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontFamily: 'sf_pro_bold'
-                          ),
-                        ),
+                    child: Card(
+                      shadowColor: black,
+                      elevation: 3.0,
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Overview",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontFamily: 'sf_pro_bold'
+                                  ),
+                                ),
 
-                        IconButton(
-                          icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
-                          onPressed: (){
-                           setState(() {
-                             if(clickedOverView == false) {
-                               clickedOverView = true;
-                             }
-                             else{
-                               clickedOverView = false;
-                             }
-                           });
-                            speakShortDesc();
-                          },
-                        ),
-                      ],
-                    )
+                                IconButton(
+                                  icon: Icon(clickedOverView ? Icons.stop : Icons.volume_up),
+                                  onPressed: (){
+                                   setState(() {
+                                     if(clickedOverView == false) {
+                                       clickedOverView = true;
+                                     }
+                                     else{
+                                       clickedOverView = false;
+                                     }
+                                   });
+                                    speakShortDesc();
+                                  },
+                                ),
+
+                              ],
+                            )
+                          ),
+
+
+
+                          SizedBox(height: 10,),
+
+                          //overview body short desc///
+                          Container(
+                            padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                            child: Text(
+                              widget.activity.shortdescription,
+                              style: TextStyle(
+                                  fontFamily: "sf_pro_semi_bold",
+                                  fontSize: 18
+                              ),
+                            ),
+                          ),
+                          //overview body short desc///
+
+                          SizedBox(height: 15,),
+
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 15,right: 15),
+                              child: Text(
+                                "Location",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'sf_pro_bold'
+                                ),
+                              )
+                          ),
+
+
+                          SizedBox(height: 5,),
+
+                          Container(
+                            padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                            child: Text(
+                              widget.activity.location,
+                              style: TextStyle(
+                                  fontFamily: "sf_pro_semi_bold",
+                                  fontSize: 16
+                              ),
+
+                            ),
+
+                          ),
+
+
+                          SizedBox(height: 15,),
+
+
+                          Container(
+                            alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 15,right: 15),
+                              child: Text(
+                                "Entry Fee",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'sf_pro_bold'
+                                ),
+                              )
+                          ),
+
+                          SizedBox(height: 5,),
+
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                            child: Text(
+                              widget.activity.entryFee,
+                              style: TextStyle(
+                                  fontFamily: "sf_pro_semi_bold",
+                                  fontSize: 16
+                              ),
+
+                            ),
+
+                          ),
+
+
+
+
+                        ],
+                      ),
+                    ),
                   ),
                   //overview head///
 
-                  SizedBox(height: 10,),
 
-                  //overview body short desc///
-                  Container(
-                    padding: EdgeInsets.only(left: 15,right: 15),
-                    child: Text(
-                      widget.activity.shortdescription,
-                      style: TextStyle(
-                        fontFamily: "sf_pro_semi_bold",
-                        fontSize: 18
-                      ),
+//                  SizedBox(height: 15,),
 
-                    ),
+//
+//                  Card(
+//                    shadowColor: grey,
+//                    elevation: 3.0,
+//                    child: Column(
+//
+//                      children: [
+//                        Container(
+//                            alignment: Alignment.centerLeft,
+//                            padding: EdgeInsets.only(left: 15,right: 15),
+//                            child: Text(
+//                              "Location",
+//                              style: TextStyle(
+//                                  fontSize: 20,
+//                                  fontFamily: 'sf_pro_bold'
+//                              ),
+//                            )
+//                        ),
+//
+//
+//                        SizedBox(height: 5,),
+//
+//                        Container(
+//                          padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+//                          child: Text(
+//                            widget.activity.location,
+//                            style: TextStyle(
+//                                fontFamily: "sf_pro_semi_bold",
+//                                fontSize: 16
+//                            ),
+//
+//                          ),
+//
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+//
 
-                  ),
-                  //overview body short desc///
-
-                  SizedBox(height: 15,),
-
-
-                  Container(
-                      padding: EdgeInsets.only(left: 15,right: 15),
-                      child: Text(
-                        "Location",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'sf_pro_bold'
-                        ),
-                      )
-                  ),
-
-                  SizedBox(height: 5,),
-
-                  Container(
-                    padding: EdgeInsets.only(left: 15,right: 15),
-                    child: Text(
-                      widget.activity.location,
-                      style: TextStyle(
-                          fontFamily: "sf_pro_semi_bold",
-                          fontSize: 16
-                      ),
-
-                    ),
-
-                  ),
-
-
-                  SizedBox(height: 15,),
-
-
-                  Container(
-                      padding: EdgeInsets.only(left: 15,right: 15),
-                      child: Text(
-                        "Entry Fee",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'sf_pro_bold'
-                        ),
-                      )
-                  ),
-
-                  SizedBox(height: 5,),
-
-                  Container(
-                    padding: EdgeInsets.only(left: 15,right: 15),
-                    child: Text(
-                      widget.activity.entryFee,
-                      style: TextStyle(
-                          fontFamily: "sf_pro_semi_bold",
-                          fontSize: 16
-                      ),
-
-                    ),
-
-                  ),
+//
+//                  SizedBox(height: 15,),
+//
+//
+//                  Container(
+//                      padding: EdgeInsets.only(left: 15,right: 15),
+//                      child: Text(
+//                        "Entry Fee",
+//                        style: TextStyle(
+//                            fontSize: 20,
+//                            fontFamily: 'sf_pro_bold'
+//                        ),
+//                      )
+//                  ),
+//
+//                  SizedBox(height: 5,),
+//
+//                  Container(
+//                    padding: EdgeInsets.only(left: 15,right: 15),
+//                    child: Text(
+//                      widget.activity.entryFee,
+//                      style: TextStyle(
+//                          fontFamily: "sf_pro_semi_bold",
+//                          fontSize: 16
+//                      ),
+//
+//                    ),
+//
+//                  ),
 
 
                  //overview body history and about//

@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shimmer/shimmer.dart';
 import '../data/data.dart';
 import 'package:flutter/widgets.dart';
@@ -24,6 +25,9 @@ import 'login.dart';
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
 
+  String city;
+  HomePage({this.city});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -33,10 +37,11 @@ class _HomePageState extends State<HomePage> {
   DatabaseService data = new DatabaseService();
   AuthService _authService = new AuthService();
 
-  String topImageUrl = "https://cdn.britannica.com/86/170586-050-AB7FEFAE/Taj-Mahal-Agra-India.jpg";
+  String topImageUrl;
 
 
-  String city="Delhi",state="New Delhi";
+  String _city ;
+  String _state;
 
   bool loading = true;
 
@@ -45,16 +50,99 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-//    getLocation();
 
      getFullData();
+  }
+
+  getLocation() async {
+
+
+
+      Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude,position.longitude,localeIdentifier:AutofillHints.location);
+
+      String  city ="Delhi" , state;
+
+      if(placemark[0].subAdministrativeArea == 'Dewas'){
+        city = "Indore";
+        state = "Madhya Pradesh";
+      }
+      else if(placemark[0].subAdministrativeArea == "Ghaziabad") {
+        city = "Delhi";
+        state = "New Delhi";
+      }
+      else if(placemark[0].subAdministrativeArea == 'Jaipur') {
+        city = "Jaipur";
+        state ="Rajasthan";
+      }
+      else if(placemark[0].subAdministrativeArea == 'Indore') {
+        city = "Indore";
+        state = "Madhya Pradesh";
+      }
+      else if(placemark[0].subAdministrativeArea == 'Satna' ||
+          placemark[0].subAdministrativeArea == 'Bina') {
+        city = "Indore";
+        state = "Madhya Pradesh";
+      }
+      else if(placemark[0].administrativeArea == 'Rajasthan') {
+        city = "Jaipur";
+        state = "Rajasthan";
+      }
+      else {
+        city = "Delhi";
+        state = "New Delhi";
+      }
+
+
+       setState(() {
+         _city =  city;
+         _state = state;
+
+      });
 
   }
+
+
+  List searchData;
+
+  getSearchData() async {
+    List searchPlaces = new List();
+    await Firestore.instance.collection("Places").getDocuments().then((value) {
+
+      value.documents.forEach((element) {
+
+         searchPlaces.add(element.data['city']);
+
+      });
+
+    });
+    setState(() {
+      searchData = searchPlaces;
+    });
+
+  }
+
+  String profilePhoto;
+
+  getProfileImage() async {
+    await AuthService.getProfilePhotoSharedPref().then((value) {
+       if (value!=null) {
+         setState(() {
+           profilePhoto = value;
+         });
+       }
+    });
+  }
+
+
 
   getFullData() async {
     setState(() {
       loading  = true;
     });
+    await getProfileImage();
+    await getSearchData();
+    await getLocation();
     await getImage();
     await getMonuments();
     await getCulture();
@@ -68,32 +156,22 @@ class _HomePageState extends State<HomePage> {
   DatabaseService databaseService = DatabaseService();
 
   AboutCityData cityData;
+
   getCityData() async{
-    await databaseService.getCityDataFirebaseFireStore(city: "Delhi").then((value) {
-      setState(() {
-        cityData =  value;
-      });
+    await databaseService.getCityDataFirebaseFireStore(city: widget.city == null ?  _city : widget.city).then((value) {
+      if(value!=null) {
+        setState(() {
+          cityData =  value;
+        });
+      }
+
     });
   }
 
 
-//  getLocation() async{
-//    await AuthService.getCurrentCitySharedPref().then((value) {
-//        setState(() {
-//          city = value.toString();
-//        });
-//    });
-//
-//    await AuthService.getCurrentStateSharedPref().then((value){
-//       setState(() {
-//          state = value.toString();
-//       });
-//    });
-//  }
-
   List <Data> monuments = new List();
    getMonuments() async {
-    await Firestore.instance.collection("Places").document(city).collection("Monuments")
+    await Firestore.instance.collection("Places").document(widget.city == null ?  _city : widget.city).collection("Monuments")
         .getDocuments().then((querySnapshot) {
 
        querySnapshot.documents.forEach((element) {
@@ -121,7 +199,7 @@ class _HomePageState extends State<HomePage> {
 
   List <Data> cultureAndFestival = new List();
  getCulture() async {
-    await Firestore.instance.collection("Places").document(city).collection("Culture")
+    await Firestore.instance.collection("Places").document(widget.city == null ?  _city : widget.city).collection("Culture")
         .getDocuments().then((querySnapshot) {
 
       querySnapshot.documents.forEach((element) {
@@ -146,7 +224,7 @@ class _HomePageState extends State<HomePage> {
 
 
   getFestivals() async {
-    await Firestore.instance.collection("Places").document(city).collection("Festivals")
+    await Firestore.instance.collection("Places").document(widget.city == null ?  _city : widget.city).collection("Festivals")
         .getDocuments().then((querySnapshot) {
 
       querySnapshot.documents.forEach((element) {
@@ -169,15 +247,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
-
   getImage() async{
-     await Firestore.instance.collection("Places").document(city).get().then((value){
-       setState(() {
-           topImageUrl = value.data['mainImage'].toString();
-       });
+     await Firestore.instance.collection("Places").document(widget.city == null ?  _city : widget.city).get().then((value)
+     {
+       if(value!=null){
+         setState(() {
+           topImageUrl = value.data['mainImage'];
+         });
+       }
+
      });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -189,9 +270,9 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: <Widget>[
                 //staring text
-                TopOfHome(topImageUrl: topImageUrl,cityName: "Delhi", stateName: "New Delhi",),
+                TopOfHome(topImageUrl: topImageUrl,profileImageUrl: profilePhoto,cityName: widget.city == null  ?  _city : widget.city,),
                 //search bar
-                SearchBarHome(),
+                widget.city == null ? SearchBarHome(searchList : searchData) : Container(),
                 SizedBox(height: 20,),
 
                 //text of near by u
@@ -207,20 +288,12 @@ class _HomePageState extends State<HomePage> {
                             fontFamily: 'sf_pro_bold',
                             color: black),
                       ),
-                      Text(
-                        'View all',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontFamily: 'sf_pro_regular',
-                            color: grey),
-                      ),
                     ],
                   ),
                 ),
                 //near by u .....
 
                ForYou(monuments),
-
 
                 SizedBox(height: 30.0,),
 
@@ -230,18 +303,11 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'Local Culture',
+                        'Regional Culture',
                         style: TextStyle(
                             fontSize: 22.0,
                             fontFamily: 'sf_pro_bold',
                             color: black),
-                      ),
-                      Text(
-                        'View all',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontFamily: 'sf_pro_regular',
-                            color: grey),
                       ),
                     ],
                   ),
@@ -261,22 +327,16 @@ class _HomePageState extends State<HomePage> {
                             fontFamily: 'sf_pro_bold',
                             color: black),
                       ),
-                      Text(
-                        'View all',
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'sf_pro_regular',
-                            color: lightGrey),
-                      ),
+
                     ],
                   ),
                 ),
 
-                InPlaceCard(imageUrl:'assets/images/food.webp', name: "Food",onTapWidget: Food(city : city),),
+                InPlaceCard(imageUrl:'assets/images/food.webp', name: "Food",onTapWidget: Food(city : widget.city == null ?  _city : widget.city),),
 
-                InPlaceCard(imageUrl:'assets/images/best_place.jpg', name: "Best Places",onTapWidget: BestPlaces(city: city,),),
+                InPlaceCard(imageUrl:'assets/images/best_place.jpg', name: "Core",onTapWidget: BestPlaces(city: widget.city == null?  _city : widget.city),),
 
-                InPlaceCard(imageUrl:'assets/images/about.jpg', name: "About",onTapWidget: AboutCity(city: city,cityData: cityData,),),
+                InPlaceCard(imageUrl:'assets/images/about.jpg', name: "About",onTapWidget: AboutCity(city:widget.city == null ?  _city : widget.city,cityData: cityData,),),
 
 
                 SizedBox(height: 12.0,),
@@ -297,6 +357,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ShimmerLayout extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     double containerWidth = 200;
@@ -344,17 +405,12 @@ class ShimmerLayout extends StatelessWidget {
                           )
                         ],
                       ),
-
                     ]
                   ),
-
                   SizedBox(height: 10,)
-
                  ]
                 ),
-
               );
-
             }),
           ),
         ),

@@ -55,9 +55,7 @@ class _MyAppState extends State<MyApp> {
               builder: (context) => Login(),
             ));
           }
-
         },
-
     );
   }
 
@@ -70,7 +68,6 @@ class _MyAppState extends State<MyApp> {
        }
     });
   }
-
 
   bool onBoarding = false;
   getOnBoardingSeen() async {
